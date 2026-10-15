@@ -1,1 +1,22 @@
-PLACEHOLDER
+{
+  "hub": "Emorce Hub",
+  "version": "1.0",
+  "key": "demorce22",
+  "loader": "/loader.lua",
+  "games": [
+    {"name": "99 Nights in the Forest", "slug": "99NightsForest", "placeId": 79546208627805, "file": "/scripts/79546208627805.lua", "size": 95503},
+    {"name": "Aisle of the Locust", "slug": "AisleOfTheLocust", "placeId": 134728380684025, "file": "/scripts/134728380684025.lua", "size": 115842},
+    {"name": "Animal Hospital", "slug": "AnimalHospital", "placeId": 78515283254292, "file": "/scripts/78515283254292.lua", "size": 92596},
+    {"name": "Dandy's World", "slug": "DandysWorld", "placeId": 16116270224, "file": "/scripts/16116270224.lua", "size": 87700},
+    {"name": "Don't Let Him In", "slug": "DontLetHimIn", "placeId": 121165298854655, "file": "/scripts/121165298854655.lua", "size": 80397},
+    {"name": "Fling Things and People", "slug": "FlingThingsAndPeople", "placeId": 6961824067, "file": "/scripts/6961824067.lua", "size": 794334},
+    {"name": "Hush Valley", "slug": "HushValley", "placeId": 107535308163741, "file": "/scripts/107535308163741.lua", "size": 80217},
+    {"name": "Illegal Soccer", "slug": "IllegalSoccer", "placeId": 126987974021910, "file": "/scripts/126987974021910.lua", "size": 88960},
+    {"name": "Kabuki", "slug": "Kabuki", "placeId": 128541381932893, "file": "/scripts/128541381932893.lua", "size": 135372},
+    {"name": "Murder Mystery 2", "slug": "MM2", "placeId": 142823291, "file": "/scripts/142823291.lua", "size": 115316},
+    {"name": "Runaways", "slug": "Runaways", "placeId": 118418618261207, "file": "/scripts/118418618261207.lua", "size": 122248},
+    {"name": "Steal Egg", "slug": "StealEgg", "placeId": 107778070777162, "file": "/scripts/107778070777162.lua", "size": 105248},
+    {"name": "Survive a Million Monkeys", "slug": "SurviveMillionMonkeys", "placeId": 99409088950210, "file": "/scripts/99409088950210.lua", "size": 112977},
+    {"name": "Violence District", "slug": "ViolenceDistrict", "placeId": 93978595733734, "file": "/scripts/93978595733734.lua", "size": 86050}
+  ]
+}
