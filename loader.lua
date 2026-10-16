@@ -1,4 +1,4 @@
---[[ Emorce Hub Loader v1.2 ]]
+--[[ Emorce Hub Loader v1.3 ]]
 local PLACE_MAP = {
 	[142823291] = "https://pastefy.app/guVxEdP6/raw",
 	[335132309] = "https://pastefy.app/guVxEdP6/raw",
@@ -90,21 +90,22 @@ if type(getgenv) == "function" then
 	cfg.Maker = "Emorce"
 	cfg.Support = "Axion"
 	cfg.KeyLink = "https://emorce-hub.vercel.app"
-	cfg.Version = "1.2"
+	cfg.Version = "1.3"
 	cfg.SkipIntro = true
+	local mapped = mapGet(PLACE_MAP, placeId)
 	if payload then
 		cfg.Payload = payload
-		cfg.PayloadUrl = nil
-		cfg.StatusMessage = "Script ready · place " .. tostring(placeId)
+		cfg.PayloadUrl = mapped
+		cfg.StatusMessage = "Script ready · place " .. tostring(placeId) .. " — enter key"
 	else
 		cfg.Payload = nil
-		cfg.PayloadUrl = mapGet(PLACE_MAP, placeId)
-		cfg.StatusMessage = cfg.PayloadUrl and ("Script URL ready · place " .. tostring(placeId)) or ("No script for place " .. tostring(placeId) .. " — key still works")
+		cfg.PayloadUrl = mapped
+		cfg.StatusMessage = mapped and ("Script URL ready · place " .. tostring(placeId) .. " — enter key") or ("No script for place " .. tostring(placeId))
 	end
 end
 
 local uiSources = {
-	"https://pastefy.app/phNajwvT/raw",
+	"https://pastefy.app/nXgGu2q4/raw",
 	"https://emorce-hub.vercel.app/loader_ui.lua",
 	"https://raw.githubusercontent.com/hexed00/emorce-hub/main/loader_ui.lua",
 }
@@ -163,7 +164,7 @@ if not uiLoaded then
 	status.TextWrapped = true
 	status.TextXAlignment = Enum.TextXAlignment.Left
 	status.TextColor3 = Color3.fromRGB(180, 160, 165)
-	status.Text = payload and ("Script ready · place " .. tostring(placeId)) or ("No script for place " .. tostring(placeId))
+	status.Text = payload and ("Script ready · place " .. tostring(placeId) .. " — enter key") or ("No script for place " .. tostring(placeId))
 	status.Parent = frame
 	local box = Instance.new("TextBox")
 	box.Size = UDim2.new(1, -24, 0, 34)
@@ -195,7 +196,12 @@ if not uiLoaded then
 			status.TextColor3 = Color3.fromRGB(255, 120, 140)
 			return
 		end
-		if not payload then
+		local body = payload
+		if not body then
+			local url = mapGet(PLACE_MAP, placeId)
+			if url then body = httpGet(url) end
+		end
+		if type(body) ~= "string" or #body < 50 then
 			status.Text = "Key ok — no script for place " .. tostring(placeId)
 			status.TextColor3 = Color3.fromRGB(255, 200, 120)
 			return
@@ -203,7 +209,7 @@ if not uiLoaded then
 		status.Text = "Loading..."
 		status.TextColor3 = Color3.fromRGB(120, 220, 160)
 		local ok, err = pcall(function()
-			local fn, e = loadstring(payload)
+			local fn, e = loadstring(body)
 			if not fn then error(e) end
 			fn()
 		end)
