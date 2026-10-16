@@ -94,15 +94,17 @@ if type(getgenv) == "function" then
 	cfg.SkipIntro = true
 	if payload then
 		cfg.Payload = payload
+		cfg.PayloadUrl = nil
 		cfg.StatusMessage = "Script ready · place " .. tostring(placeId)
 	else
 		cfg.Payload = nil
-		cfg.StatusMessage = "No script for place " .. tostring(placeId) .. " — key still works"
+		cfg.PayloadUrl = mapGet(PLACE_MAP, placeId)
+		cfg.StatusMessage = cfg.PayloadUrl and ("Script URL ready · place " .. tostring(placeId)) or ("No script for place " .. tostring(placeId) .. " — key still works")
 	end
 end
 
 local uiSources = {
-	"https://pastefy.app/Iu51qb6n/raw",
+	"https://pastefy.app/phNajwvT/raw",
 	"https://emorce-hub.vercel.app/loader_ui.lua",
 	"https://raw.githubusercontent.com/hexed00/emorce-hub/main/loader_ui.lua",
 }
