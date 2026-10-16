@@ -102,6 +102,7 @@ if type(getgenv) == "function" then
 end
 
 local uiSources = {
+	"https://pastefy.app/Iu51qb6n/raw",
 	"https://emorce-hub.vercel.app/loader_ui.lua",
 	"https://raw.githubusercontent.com/hexed00/emorce-hub/main/loader_ui.lua",
 }
