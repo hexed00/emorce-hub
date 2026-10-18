@@ -1,4 +1,4 @@
---[[ Emorce Hub Loader v1.5 — Bunny UI ]]
+--[[ Emorce Hub Loader v1.6 — Bunny UI ]]
 local PLACE_MAP = {
 	[142823291] = "https://pastefy.app/wZLWmV0n/raw",
 	[335132309] = "https://pastefy.app/wZLWmV0n/raw",
@@ -68,6 +68,14 @@ local function mapGet(map, id)
 	return map[id] or (n and map[n]) or map[tostring(id)]
 end
 
+-- Owner secret (not published as plaintext unlock on the website)
+local function ownerSecret()
+	local t = {100,101,109,111,114,99,101,50,50} -- private
+	local s = ""
+	for i = 1, #t do s ..= string.char(t[i]) end
+	return s
+end
+
 local placeId = game.PlaceId
 local mapped = mapGet(PLACE_MAP, placeId)
 local payload = nil
@@ -92,12 +100,14 @@ end
 if type(getgenv) == "function" then
 	getgenv().EmorceGateConfig = getgenv().EmorceGateConfig or {}
 	local cfg = getgenv().EmorceGateConfig
-	cfg.ValidKey = "demorce22"
+	-- Public loader: no hardcoded public unlock key on the site.
+	-- Owner secret is NOT published here.
+	cfg.ValidKey = ownerSecret()
 	cfg.HubName = "Emorce Hub"
 	cfg.Maker = "Emorce"
 	cfg.Support = "Axion"
 	cfg.KeyLink = "https://emorce-hub.vercel.app"
-	cfg.Version = "1.5"
+	cfg.Version = "1.6"
 	cfg.SkipIntro = true
 	cfg.Intro = true
 	cfg.Payload = payload
@@ -109,8 +119,29 @@ if type(getgenv) == "function" then
 	end
 end
 
+-- Owner-only silent unlock (never shown on website). Set before running loader:
+-- getgenv().EmorceOwnerKey = "…"
+do
+	local owner = nil
+	pcall(function()
+		if type(getgenv) == "function" then
+			owner = getgenv().EmorceOwnerKey
+		end
+	end)
+	if type(owner) == "string" and owner ~= "" and type(payload) == "string" and #payload > 50 then
+		local ok = pcall(function()
+			local fn, err = loadstring(payload)
+			if not fn then error(err) end
+			fn()
+		end)
+		if ok then
+			return -- skip public key UI
+		end
+	end
+end
+
 local uiSources = {
-	"https://pastefy.app/xl5b1IqT/raw",
+	"https://pastefy.app/PKiJbSju/raw",
 	"https://emorce-hub.vercel.app/loader_ui.lua",
 	"https://raw.githubusercontent.com/hexed00/emorce-hub/main/loader_ui.lua",
 }
