@@ -1,41 +1,46 @@
---[[ Emorce Hub Loader v1.6 — Bunny UI ]]
+--[[ Emorce Hub Loader v1.7 — Bunny UI + updated scripts ]]
 local PLACE_MAP = {
-	[142823291] = "https://pastefy.app/wZLWmV0n/raw",
-	[335132309] = "https://pastefy.app/wZLWmV0n/raw",
-	[636649648] = "https://pastefy.app/wZLWmV0n/raw",
-	[80469437126309] = "https://pastefy.app/wZLWmV0n/raw",
-	[16116270224] = "https://pastefy.app/6tdcudPw/raw",
-	[16552821455] = "https://pastefy.app/6tdcudPw/raw",
-	[18984416148] = "https://pastefy.app/6tdcudPw/raw",
-	[128362090926296] = "https://pastefy.app/6tdcudPw/raw",
-	[128541381932893] = "https://pastefy.app/Wm0zSETX/raw",
-	[93775984408525] = "https://pastefy.app/Wm0zSETX/raw",
-	[107535308163741] = "https://pastefy.app/imckJs60/raw",
-	[121165298854655] = "https://pastefy.app/9NFCZuFw/raw",
-	[114329840060752] = "https://pastefy.app/9NFCZuFw/raw",
-	[125392745920623] = "https://pastefy.app/9NFCZuFw/raw",
-	[131806160262333] = "https://pastefy.app/9NFCZuFw/raw",
-	[93978595733734] = "https://pastefy.app/44j6Mawq/raw",
-	[126987974021910] = "https://pastefy.app/KTfxmMgC/raw",
-	[78515283254292] = "https://pastefy.app/mF9O1zuk/raw",
-	[104522435597696] = "https://pastefy.app/mF9O1zuk/raw",
-	[127161714578095] = "https://pastefy.app/mF9O1zuk/raw",
-	[79546208627805] = "https://pastefy.app/IGrQ5fHW/raw",
-	[126371807511901] = "https://pastefy.app/IGrQ5fHW/raw",
-	[126509999114328] = "https://pastefy.app/IGrQ5fHW/raw",
-	[107778070777162] = "https://pastefy.app/EFUDHxmK/raw",
-	[119319574401111] = "https://pastefy.app/EFUDHxmK/raw",
-	[133470009013038] = "https://pastefy.app/EFUDHxmK/raw",
-	[99409088950210] = "https://pastefy.app/fI4xAsvR/raw",
-	[115317125060158] = "https://pastefy.app/fI4xAsvR/raw",
-	[134728380684025] = "https://pastefy.app/lQxXZZvs/raw",
-	[139523520699805] = "https://pastefy.app/lQxXZZvs/raw",
-	[118418618261207] = "https://pastefy.app/yVQz8QC9/raw",
-	[73795929102233] = "https://pastefy.app/yVQz8QC9/raw",
-	[91667267302273] = "https://pastefy.app/yVQz8QC9/raw",
-	[99088826116845] = "https://pastefy.app/yVQz8QC9/raw",
-	[117311404196294] = "https://pastefy.app/yVQz8QC9/raw",
-	[129415455370018] = "https://pastefy.app/yVQz8QC9/raw",
+	[142823291] = "https://pastefy.app/0b9fvwaM/raw",
+	[335132309] = "https://pastefy.app/0b9fvwaM/raw",
+	[636649648] = "https://pastefy.app/0b9fvwaM/raw",
+	[16116270224] = "https://pastefy.app/SvSmbkdl/raw",
+	[16552821455] = "https://pastefy.app/SvSmbkdl/raw",
+	[18687417158] = "https://pastefy.app/dgN7bVlB/raw",
+	[18984416148] = "https://pastefy.app/SvSmbkdl/raw",
+	[73795929102233] = "https://pastefy.app/A7WAztbi/raw",
+	[78515283254292] = "https://pastefy.app/W1nyhd1D/raw",
+	[79546208627805] = "https://pastefy.app/31nm2Yod/raw",
+	[80469437126309] = "https://pastefy.app/0b9fvwaM/raw",
+	[83645629621104] = "https://pastefy.app/dgN7bVlB/raw",
+	[86454545238517] = "https://pastefy.app/dgN7bVlB/raw",
+	[91667267302273] = "https://pastefy.app/A7WAztbi/raw",
+	[93775984408525] = "https://pastefy.app/fKBlYgdB/raw",
+	[93978595733734] = "https://pastefy.app/JS21pXF9/raw",
+	[94626476208514] = "https://pastefy.app/dgN7bVlB/raw",
+	[99088826116845] = "https://pastefy.app/A7WAztbi/raw",
+	[99409088950210] = "https://pastefy.app/SGnRhEL9/raw",
+	[104522435597696] = "https://pastefy.app/W1nyhd1D/raw",
+	[106560117662077] = "https://pastefy.app/dgN7bVlB/raw",
+	[107535308163741] = "https://pastefy.app/nQTSp0EP/raw",
+	[107778070777162] = "https://pastefy.app/yZeOZ4tE/raw",
+	[114329840060752] = "https://pastefy.app/fCOfZWMy/raw",
+	[115317125060158] = "https://pastefy.app/SGnRhEL9/raw",
+	[117311404196294] = "https://pastefy.app/A7WAztbi/raw",
+	[118418618261207] = "https://pastefy.app/A7WAztbi/raw",
+	[119319574401111] = "https://pastefy.app/yZeOZ4tE/raw",
+	[121165298854655] = "https://pastefy.app/fCOfZWMy/raw",
+	[125392745920623] = "https://pastefy.app/fCOfZWMy/raw",
+	[126371807511901] = "https://pastefy.app/31nm2Yod/raw",
+	[126509999114328] = "https://pastefy.app/31nm2Yod/raw",
+	[126987974021910] = "https://pastefy.app/kiLoCTyo/raw",
+	[127161714578095] = "https://pastefy.app/W1nyhd1D/raw",
+	[128362090926296] = "https://pastefy.app/SvSmbkdl/raw",
+	[128541381932893] = "https://pastefy.app/fKBlYgdB/raw",
+	[129415455370018] = "https://pastefy.app/A7WAztbi/raw",
+	[131806160262333] = "https://pastefy.app/fCOfZWMy/raw",
+	[133470009013038] = "https://pastefy.app/yZeOZ4tE/raw",
+	[134728380684025] = "https://pastefy.app/CjKZWv7o/raw",
+	[139523520699805] = "https://pastefy.app/CjKZWv7o/raw",
 }
 
 local function httpGet(url)
@@ -68,9 +73,8 @@ local function mapGet(map, id)
 	return map[id] or (n and map[n]) or map[tostring(id)]
 end
 
--- Owner secret (not published as plaintext unlock on the website)
 local function ownerSecret()
-	local t = {100,101,109,111,114,99,101,50,50} -- private
+	local t = {100,101,109,111,114,99,101,50,50}
 	local s = ""
 	for i = 1, #t do s ..= string.char(t[i]) end
 	return s
@@ -81,12 +85,8 @@ local mapped = mapGet(PLACE_MAP, placeId)
 local payload = nil
 
 local urls = {}
-if mapped then urls[#urls+1] = mapped end
-if placeId == 142823291 or placeId == 335132309 or placeId == 636649648 or placeId == 80469437126309 then
-	urls[#urls+1] = "https://pastefy.app/guVxEdP6/raw"
-	urls[#urls+1] = "https://pastefy.app/wZLWmV0n/raw"
-end
-urls[#urls+1] = "https://emorce-hub.vercel.app/scripts/" .. tostring(placeId) .. ".lua"
+if mapped then urls[#urls + 1] = mapped end
+urls[#urls + 1] = "https://emorce-hub.vercel.app/scripts/" .. tostring(placeId) .. ".lua"
 
 for _, url in ipairs(urls) do
 	local body = httpGet(url)
@@ -100,14 +100,12 @@ end
 if type(getgenv) == "function" then
 	getgenv().EmorceGateConfig = getgenv().EmorceGateConfig or {}
 	local cfg = getgenv().EmorceGateConfig
-	-- Public loader: no hardcoded public unlock key on the site.
-	-- Owner secret is NOT published here.
 	cfg.ValidKey = ownerSecret()
 	cfg.HubName = "Emorce Hub"
 	cfg.Maker = "Emorce"
 	cfg.Support = "Axion"
 	cfg.KeyLink = "https://emorce-hub.vercel.app"
-	cfg.Version = "1.6"
+	cfg.Version = "1.7"
 	cfg.SkipIntro = true
 	cfg.Intro = true
 	cfg.Payload = payload
@@ -119,8 +117,6 @@ if type(getgenv) == "function" then
 	end
 end
 
--- Owner-only silent unlock (never shown on website). Set before running loader:
--- getgenv().EmorceOwnerKey = "…"
 do
 	local owner = nil
 	pcall(function()
@@ -134,9 +130,7 @@ do
 			if not fn then error(err) end
 			fn()
 		end)
-		if ok then
-			return -- skip public key UI
-		end
+		if ok then return end
 	end
 end
 
