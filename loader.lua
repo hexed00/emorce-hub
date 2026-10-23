@@ -1,46 +1,58 @@
---[[ Emorce Hub Loader v1.7 — Bunny UI + updated scripts ]]
+--[[ Emorce Hub Loader v1.8 — Emorce scripts ]]
 local PLACE_MAP = {
-	[142823291] = "https://pastefy.app/0b9fvwaM/raw",
-	[335132309] = "https://pastefy.app/0b9fvwaM/raw",
-	[636649648] = "https://pastefy.app/0b9fvwaM/raw",
-	[16116270224] = "https://pastefy.app/SvSmbkdl/raw",
-	[16552821455] = "https://pastefy.app/SvSmbkdl/raw",
-	[18687417158] = "https://pastefy.app/dgN7bVlB/raw",
-	[18984416148] = "https://pastefy.app/SvSmbkdl/raw",
-	[73795929102233] = "https://pastefy.app/A7WAztbi/raw",
-	[78515283254292] = "https://pastefy.app/W1nyhd1D/raw",
-	[79546208627805] = "https://pastefy.app/31nm2Yod/raw",
-	[80469437126309] = "https://pastefy.app/0b9fvwaM/raw",
-	[83645629621104] = "https://pastefy.app/dgN7bVlB/raw",
-	[86454545238517] = "https://pastefy.app/dgN7bVlB/raw",
-	[91667267302273] = "https://pastefy.app/A7WAztbi/raw",
-	[93775984408525] = "https://pastefy.app/fKBlYgdB/raw",
-	[93978595733734] = "https://pastefy.app/JS21pXF9/raw",
-	[94626476208514] = "https://pastefy.app/dgN7bVlB/raw",
-	[99088826116845] = "https://pastefy.app/A7WAztbi/raw",
-	[99409088950210] = "https://pastefy.app/SGnRhEL9/raw",
-	[104522435597696] = "https://pastefy.app/W1nyhd1D/raw",
-	[106560117662077] = "https://pastefy.app/dgN7bVlB/raw",
-	[107535308163741] = "https://pastefy.app/nQTSp0EP/raw",
-	[107778070777162] = "https://pastefy.app/yZeOZ4tE/raw",
-	[114329840060752] = "https://pastefy.app/fCOfZWMy/raw",
-	[115317125060158] = "https://pastefy.app/SGnRhEL9/raw",
-	[117311404196294] = "https://pastefy.app/A7WAztbi/raw",
-	[118418618261207] = "https://pastefy.app/A7WAztbi/raw",
-	[119319574401111] = "https://pastefy.app/yZeOZ4tE/raw",
-	[121165298854655] = "https://pastefy.app/fCOfZWMy/raw",
-	[125392745920623] = "https://pastefy.app/fCOfZWMy/raw",
-	[126371807511901] = "https://pastefy.app/31nm2Yod/raw",
-	[126509999114328] = "https://pastefy.app/31nm2Yod/raw",
-	[126987974021910] = "https://pastefy.app/kiLoCTyo/raw",
-	[127161714578095] = "https://pastefy.app/W1nyhd1D/raw",
-	[128362090926296] = "https://pastefy.app/SvSmbkdl/raw",
-	[128541381932893] = "https://pastefy.app/fKBlYgdB/raw",
-	[129415455370018] = "https://pastefy.app/A7WAztbi/raw",
-	[131806160262333] = "https://pastefy.app/fCOfZWMy/raw",
-	[133470009013038] = "https://pastefy.app/yZeOZ4tE/raw",
-	[134728380684025] = "https://pastefy.app/CjKZWv7o/raw",
-	[139523520699805] = "https://pastefy.app/CjKZWv7o/raw",
+	[142823291] = "https://pastefy.app/01GHzAED/raw",
+	[335132309] = "https://pastefy.app/01GHzAED/raw",
+	[636649648] = "https://pastefy.app/01GHzAED/raw",
+	[9872472334] = "https://pastefy.app/D73LIF6e/raw",
+	[10324346056] = "https://pastefy.app/D73LIF6e/raw",
+	[10324347967] = "https://pastefy.app/D73LIF6e/raw",
+	[10662542523] = "https://pastefy.app/D73LIF6e/raw",
+	[10808838353] = "https://pastefy.app/D73LIF6e/raw",
+	[11353528705] = "https://pastefy.app/D73LIF6e/raw",
+	[16116270224] = "https://pastefy.app/3Rh2Is6U/raw",
+	[16552821455] = "https://pastefy.app/3Rh2Is6U/raw",
+	[18687417158] = "https://pastefy.app/Bfdt3s7W/raw",
+	[18984416148] = "https://pastefy.app/3Rh2Is6U/raw",
+	[73795929102233] = "https://pastefy.app/njjzhsFS/raw",
+	[78515283254292] = "https://pastefy.app/c9lTJrRT/raw",
+	[79546208627805] = "https://pastefy.app/5ektS4SH/raw",
+	[80469437126309] = "https://pastefy.app/01GHzAED/raw",
+	[83645629621104] = "https://pastefy.app/Bfdt3s7W/raw",
+	[86454545238517] = "https://pastefy.app/Bfdt3s7W/raw",
+	[91667267302273] = "https://pastefy.app/njjzhsFS/raw",
+	[93775984408525] = "https://pastefy.app/fk1MFIme/raw",
+	[93978595733734] = "https://pastefy.app/qhTbOpmr/raw",
+	[94626476208514] = "https://pastefy.app/Bfdt3s7W/raw",
+	[96023089630459] = "https://pastefy.app/16QhXBBu/raw",
+	[96537472072550] = "https://pastefy.app/D73LIF6e/raw",
+	[99088826116845] = "https://pastefy.app/njjzhsFS/raw",
+	[99214917572799] = "https://pastefy.app/D73LIF6e/raw",
+	[99409088950210] = "https://pastefy.app/JRmeaU0l/raw",
+	[104522435597696] = "https://pastefy.app/c9lTJrRT/raw",
+	[106560117662077] = "https://pastefy.app/Bfdt3s7W/raw",
+	[107535308163741] = "https://pastefy.app/NIC1euS2/raw",
+	[107778070777162] = "https://pastefy.app/Su1qt3pQ/raw",
+	[109151342576374] = "https://pastefy.app/16QhXBBu/raw",
+	[114329840060752] = "https://pastefy.app/MEajVvZA/raw",
+	[114574503491412] = "https://pastefy.app/16QhXBBu/raw",
+	[115317125060158] = "https://pastefy.app/JRmeaU0l/raw",
+	[117311404196294] = "https://pastefy.app/njjzhsFS/raw",
+	[118418618261207] = "https://pastefy.app/njjzhsFS/raw",
+	[119319574401111] = "https://pastefy.app/Su1qt3pQ/raw",
+	[121165298854655] = "https://pastefy.app/MEajVvZA/raw",
+	[125392745920623] = "https://pastefy.app/MEajVvZA/raw",
+	[126371807511901] = "https://pastefy.app/5ektS4SH/raw",
+	[126509999114328] = "https://pastefy.app/5ektS4SH/raw",
+	[126987974021910] = "https://pastefy.app/k3dVeUKP/raw",
+	[127161714578095] = "https://pastefy.app/c9lTJrRT/raw",
+	[128362090926296] = "https://pastefy.app/3Rh2Is6U/raw",
+	[128541381932893] = "https://pastefy.app/fk1MFIme/raw",
+	[129415455370018] = "https://pastefy.app/njjzhsFS/raw",
+	[131806160262333] = "https://pastefy.app/MEajVvZA/raw",
+	[132303256922720] = "https://pastefy.app/16QhXBBu/raw",
+	[133470009013038] = "https://pastefy.app/Su1qt3pQ/raw",
+	[134728380684025] = "https://pastefy.app/s3kZykEl/raw",
+	[139523520699805] = "https://pastefy.app/s3kZykEl/raw",
 }
 
 local function httpGet(url)
@@ -83,18 +95,12 @@ end
 local placeId = game.PlaceId
 local mapped = mapGet(PLACE_MAP, placeId)
 local payload = nil
-
 local urls = {}
-if mapped then urls[#urls + 1] = mapped end
-urls[#urls + 1] = "https://emorce-hub.vercel.app/scripts/" .. tostring(placeId) .. ".lua"
-
+if mapped then urls[#urls+1] = mapped end
+urls[#urls+1] = "https://emorce-hub.vercel.app/scripts/" .. tostring(placeId) .. ".lua"
 for _, url in ipairs(urls) do
 	local body = httpGet(url)
-	if isLua(body) then
-		payload = body
-		mapped = mapped or url
-		break
-	end
+	if isLua(body) then payload = body; mapped = mapped or url; break end
 end
 
 if type(getgenv) == "function" then
@@ -105,25 +111,17 @@ if type(getgenv) == "function" then
 	cfg.Maker = "Emorce"
 	cfg.Support = "Axion"
 	cfg.KeyLink = "https://emorce-hub.vercel.app"
-	cfg.Version = "1.7"
+	cfg.Version = "1.8"
 	cfg.SkipIntro = true
 	cfg.Intro = true
 	cfg.Payload = payload
 	cfg.PayloadUrl = mapped
-	if payload then
-		cfg.StatusMessage = "Script ready · place " .. tostring(placeId) .. " — enter key"
-	else
-		cfg.StatusMessage = "No script for place " .. tostring(placeId) .. " — key still required"
-	end
+	cfg.StatusMessage = payload and ("Script ready · place " .. tostring(placeId) .. " — enter key") or ("No script for place " .. tostring(placeId) .. " — key still required")
 end
 
 do
 	local owner = nil
-	pcall(function()
-		if type(getgenv) == "function" then
-			owner = getgenv().EmorceOwnerKey
-		end
-	end)
+	pcall(function() if type(getgenv) == "function" then owner = getgenv().EmorceOwnerKey end end)
 	if type(owner) == "string" and owner ~= "" and type(payload) == "string" and #payload > 50 then
 		local ok = pcall(function()
 			local fn, err = loadstring(payload)
@@ -139,7 +137,6 @@ local uiSources = {
 	"https://emorce-hub.vercel.app/loader_ui.lua",
 	"https://raw.githubusercontent.com/hexed00/emorce-hub/main/loader_ui.lua",
 }
-
 local loaded = false
 for _, url in ipairs(uiSources) do
 	local body = httpGet(url)
@@ -149,15 +146,7 @@ for _, url in ipairs(uiSources) do
 			if not fn then error(e) end
 			fn()
 		end)
-		if ok then
-			loaded = true
-			break
-		else
-			warn("[Emorce] Bunny UI failed:", err)
-		end
+		if ok then loaded = true; break else warn("[Emorce] UI failed:", err) end
 	end
 end
-
-if not loaded then
-	error("[Emorce Hub] failed to load key UI")
-end
+if not loaded then error("[Emorce Hub] failed to load key UI") end
