@@ -5,90 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Emorce Hub</title>
   <style>
-    :root {
-      --bg: #0a0809;
-      --card: #141014;
-      --line: #3a1520;
-      --pink: #dc143c;
-      --rose: #ff3264;
-      --text: #f5f0f2;
-      --muted: #a08e93;
-    }
+    :root { --bg:#0a0809; --card:#141014; --line:#3a1520; --pink:#dc143c; --rose:#ff3264; --text:#f5f0f2; --muted:#a08e93; }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: radial-gradient(1200px 600px at 20% -10%, #2a0a14 0%, var(--bg) 55%);
-      color: var(--text);
-      min-height: 100vh;
-    }
-    .wrap { max-width: 920px; margin: 0 auto; padding: 48px 20px 80px; }
+    body { margin:0; font-family: ui-sans-serif, system-ui, sans-serif; background: radial-gradient(1200px 600px at 20% -10%, #2a0a14 0%, var(--bg) 55%); color: var(--text); min-height:100vh; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 48px 20px 80px; }
     h1 { font-size: 2rem; margin: 0 0 8px; letter-spacing: -0.02em; }
+    h2 { font-size: 1.15rem; margin: 0 0 12px; }
     p { color: var(--muted); line-height: 1.55; }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 20px;
-      margin-top: 20px;
-    }
-    code, pre {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.85rem;
-    }
-    pre {
-      background: #0d0a0c;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px;
-      overflow: auto;
-      color: #ffc0d0;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--pink);
-      color: white;
-      border: 0;
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-weight: 600;
-      cursor: pointer;
-    }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; margin-top: 20px; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.85rem; }
+    pre { background: #0d0a0c; border: 1px solid var(--line); border-radius: 12px; padding: 14px; overflow: auto; color: #ffc0d0; }
+    .btn { display:inline-flex; align-items:center; background: var(--pink); color: white; border: 0; border-radius: 10px; padding: 10px 14px; font-weight: 600; cursor: pointer; }
     .btn:hover { background: var(--rose); }
-    .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-    a { color: var(--rose); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+    .gcard { border: 1px solid var(--line); border-radius: 12px; padding: 14px; background: #100c10; }
+    .gname { font-weight: 600; margin-bottom: 6px; }
+    .gmeta { color: var(--muted); font-size: 12px; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>Emorce Hub</h1>
-    <p>
-      Keyed loader for every supported game. Execute the loadstring in-game —
-      enter your key — the hub for that PlaceId fires automatically.
-    </p>
+    <p>Updated scripts · keyed loader · PlaceId routing. Enter your key in-game after running the loadstring.</p>
 
     <div class="card">
-      <h2 style="margin:0 0 10px;font-size:1.1rem">Loadstring</h2>
+      <h2>Loadstring</h2>
       <pre id="ls">loadstring(game:HttpGet("https://emorce-hub.vercel.app/loader.lua"))()</pre>
-      <div class="row">
-        <button class="btn" id="copyLs">Copy loadstring</button>
+      <button class="btn" id="copyLs" style="margin-top:12px">Copy loadstring</button>
+    </div>
+
+    <div class="card">
+      <h2>Supported games (15)</h2>
+      <div class="grid">
+      <div class="gcard"><div class="gname">99 Nights in the Forest</div><div class="gmeta">PlaceId 79546208627805</div></div>
+      <div class="gcard"><div class="gname">Aisle of the Locust</div><div class="gmeta">PlaceId 134728380684025</div></div>
+      <div class="gcard"><div class="gname">Animal Hospital</div><div class="gmeta">PlaceId 78515283254292</div></div>
+      <div class="gcard"><div class="gname">Dandy's World</div><div class="gmeta">PlaceId 16116270224</div></div>
+      <div class="gcard"><div class="gname">Don't Let Him In</div><div class="gmeta">PlaceId 121165298854655</div></div>
+      <div class="gcard"><div class="gname">Fling Things and People</div><div class="gmeta">PlaceId 6961824067</div></div>
+      <div class="gcard"><div class="gname">Forsaken</div><div class="gmeta">PlaceId 18687417158</div></div>
+      <div class="gcard"><div class="gname">Hush Valley</div><div class="gmeta">PlaceId 107535308163741</div></div>
+      <div class="gcard"><div class="gname">Illegal Soccer</div><div class="gmeta">PlaceId 126987974021910</div></div>
+      <div class="gcard"><div class="gname">Kabuki</div><div class="gmeta">PlaceId 128541381932893</div></div>
+      <div class="gcard"><div class="gname">Murder Mystery 2</div><div class="gmeta">PlaceId 142823291</div></div>
+      <div class="gcard"><div class="gname">Runaways</div><div class="gmeta">PlaceId 118418618261207</div></div>
+      <div class="gcard"><div class="gname">Steal An Egg</div><div class="gmeta">PlaceId 107778070777162</div></div>
+      <div class="gcard"><div class="gname">Survive a Million Monkeys</div><div class="gmeta">PlaceId 99409088950210</div></div>
+      <div class="gcard"><div class="gname">Violence District</div><div class="gmeta">PlaceId 93978595733734</div></div>
       </div>
     </div>
 
     <div class="card">
-      <h2 style="margin:0 0 10px;font-size:1.1rem">How it works</h2>
-      <p style="margin-bottom:12px">1. Join a supported game.</p>
-      <p style="margin-bottom:12px">2. Unlock with your key.</p>
-      <p style="margin-bottom:12px">3. Loader resolves the PlaceId and pulls the matching script.</p>
-      <p>4. Script executes. No script for that place → status says so.</p>
+      <h2>How it works</h2>
+      <p>1. Join a supported game.</p>
+      <p>2. Run the loadstring and unlock with your key.</p>
+      <p>3. Loader resolves PlaceId (including universe sub-places) and runs the matching Emorce script.</p>
     </div>
   </div>
   <script>
     document.getElementById('copyLs').onclick = async () => {
-      const t = document.getElementById('ls').innerText;
-      await navigator.clipboard.writeText(t);
+      await navigator.clipboard.writeText(document.getElementById('ls').innerText);
       document.getElementById('copyLs').textContent = 'Copied';
       setTimeout(() => document.getElementById('copyLs').textContent = 'Copy loadstring', 1200);
     };
