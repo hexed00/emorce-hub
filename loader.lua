@@ -1,4 +1,4 @@
---[[ Emorce Hub Loader v1.9 — Emorce scripts ]]
+--[[ Emorce Hub Loader v2.0 — Emorce scripts + Tribes 3v3 ]]
 local PLACE_MAP = {
 	[142823291] = "https://pastefy.app/XtEryHoE/raw",
 	[335132309] = "https://pastefy.app/XtEryHoE/raw",
@@ -53,6 +53,7 @@ local PLACE_MAP = {
 	[133470009013038] = "https://pastefy.app/RmrdHYjB/raw",
 	[134728380684025] = "https://pastefy.app/tukxjKHh/raw",
 	[139523520699805] = "https://pastefy.app/tukxjKHh/raw",
+	[72169370437173] = "https://pastefy.app/HRhKmvj5/raw",
 }
 
 local function httpGet(url)
@@ -111,7 +112,7 @@ if type(getgenv) == "function" then
 	cfg.Maker = "Emorce"
 	cfg.Support = "Axion"
 	cfg.KeyLink = "https://emorce-hub.vercel.app"
-	cfg.Version = "1.9"
+	cfg.Version = "2.0"
 	cfg.SkipIntro = true
 	cfg.Intro = true
 	cfg.Payload = payload
