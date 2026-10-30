@@ -1,44 +1,160 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Emorce Hub</title>
-<style>
-:root{--bg:#0a0809;--card:#141014;--line:#3a1520;--pink:#dc143c;--rose:#ff3264;--text:#f5f0f2;--muted:#a08e93}
-*{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,sans-serif;background:radial-gradient(1200px 600px at 20% -10%,#2a0a14 0%,var(--bg) 55%);color:var(--text);min-height:100vh}
-.wrap{max-width:980px;margin:0 auto;padding:48px 20px 80px}h1{font-size:2rem;margin:0 0 8px}h2{font-size:1.15rem;margin:0 0 12px}p{color:var(--muted);line-height:1.55}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:20px}
-pre{background:#0d0a0c;border:1px solid var(--line);border-radius:12px;padding:14px;overflow:auto;color:#ffc0d0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem}
-.btn{display:inline-flex;background:var(--pink);color:#fff;border:0;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer}.btn:hover{background:var(--rose)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-.gcard{border:1px solid var(--line);border-radius:12px;padding:14px;background:#100c10}.gname{font-weight:600;margin-bottom:6px}.gmeta{color:var(--muted);font-size:12px}
-</style></head><body><div class="wrap">
-<h1>Emorce Hub</h1>
-<p>Your Emorce scripts · keyed loader · PlaceId routing.</p>
-<div class="card"><h2>Loadstring</h2>
-<pre id="ls">loadstring(game:HttpGet("https://emorce-hub.vercel.app/loader.lua"))()</pre>
-<button class="btn" id="copyLs" style="margin-top:12px">Copy loadstring</button></div>
-<div class="card"><h2>Supported games (17)</h2><div class="grid">
-<div class="gcard"><div class="gname">99 Nights in the Forest</div><div class="gmeta">PlaceId 79546208627805</div></div>
-<div class="gcard"><div class="gname">Aisle of the Locust</div><div class="gmeta">PlaceId 134728380684025</div></div>
-<div class="gcard"><div class="gname">Animal Hospital</div><div class="gmeta">PlaceId 78515283254292</div></div>
-<div class="gcard"><div class="gname">Anime Zero</div><div class="gmeta">PlaceId 114574503491412</div></div>
-<div class="gcard"><div class="gname">Dandy's World</div><div class="gmeta">PlaceId 16116270224</div></div>
-<div class="gcard"><div class="gname">Don't Let Him In</div><div class="gmeta">PlaceId 121165298854655</div></div>
-<div class="gcard"><div class="gname">Evade</div><div class="gmeta">PlaceId 9872472334</div></div>
-<div class="gcard"><div class="gname">Fling Things and People</div><div class="gmeta">PlaceId 6961824067</div></div>
-<div class="gcard"><div class="gname">Forsaken</div><div class="gmeta">PlaceId 18687417158</div></div>
-<div class="gcard"><div class="gname">Hush Valley</div><div class="gmeta">PlaceId 107535308163741</div></div>
-<div class="gcard"><div class="gname">Illegal Soccer</div><div class="gmeta">PlaceId 126987974021910</div></div>
-<div class="gcard"><div class="gname">Kabuki</div><div class="gmeta">PlaceId 128541381932893</div></div>
-<div class="gcard"><div class="gname">Murder Mystery 2</div><div class="gmeta">PlaceId 142823291</div></div>
-<div class="gcard"><div class="gname">Runaways</div><div class="gmeta">PlaceId 118418618261207</div></div>
-<div class="gcard"><div class="gname">Steal An Egg</div><div class="gmeta">PlaceId 107778070777162</div></div>
-<div class="gcard"><div class="gname">Survive a Million Monkeys</div><div class="gmeta">PlaceId 99409088950210</div></div>
-<div class="gcard"><div class="gname">Violence District</div><div class="gmeta">PlaceId 93978595733734</div></div>
-</div></div>
-<div class="card"><h2>How it works</h2>
-<p>1. Join a supported game.</p>
-<p>2. Run the loadstring and unlock with your key.</p>
-<p>3. Loader resolves PlaceId and runs the matching Emorce script.</p>
-</div></div>
-<script>document.getElementById('copyLs').onclick=async()=>{await navigator.clipboard.writeText(document.getElementById('ls').innerText);document.getElementById('copyLs').textContent='Copied';setTimeout(()=>document.getElementById('copyLs').textContent='Copy loadstring',1200)}</script>
-</body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emorce Hub — Login</title>
+  <style>
+    :root {
+      --bg: #07050a;
+      --card: #120e14;
+      --line: rgba(220, 20, 60, 0.35);
+      --pink: #dc143c;
+      --rose: #ff3264;
+      --text: #f5f0f2;
+      --muted: #a08e93;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 50% -10%, rgba(220, 20, 60, 0.22), transparent 55%),
+        radial-gradient(700px 400px at 80% 100%, rgba(80, 0, 30, 0.35), transparent 50%),
+        var(--bg);
+    }
+    .gate {
+      width: min(420px, calc(100% - 32px));
+      padding: 28px 24px 24px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(18, 14, 20, 0.92);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+    p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #0a080c;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+    }
+    input:focus { border-color: var(--rose); }
+    .row { display: flex; gap: 10px; margin-top: 14px; }
+    button {
+      flex: 1;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .enter { background: var(--pink); color: #fff; }
+    .enter:hover { background: var(--rose); }
+    .close { background: #1a1218; color: var(--muted); border: 1px solid var(--line); }
+    .close:hover { color: var(--text); }
+    .msg {
+      min-height: 20px;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: var(--rose);
+    }
+  </style>
+</head>
+<body>
+  <div class="gate" id="gate">
+    <div class="brand">
+      <img src="https://i.pinimg.com/736x/b6/5c/9f/b65c9ffe02a7ffad3e5b3685a3daa08e.jpg" alt="Emorce" />
+      <h1>Emorce Hub</h1>
+    </div>
+    <p>Log in to enter and view scripts. No key = site closes.</p>
+    <label for="key">Key</label>
+    <input id="key" type="password" autocomplete="off" placeholder="enter key" autofocus />
+    <div class="row">
+      <button class="enter" id="enter" type="button">Enter</button>
+      <button class="close" id="close" type="button">Close</button>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+  <script>
+    (function () {
+      const KEY = "demorce22";
+      const input = document.getElementById("key");
+      const msg = document.getElementById("msg");
+
+      function deny(text) {
+        msg.textContent = text || "Wrong key.";
+        input.value = "";
+        input.focus();
+      }
+
+      function closeSite() {
+        try { window.close(); } catch (e) {}
+        document.documentElement.innerHTML = "";
+        document.write("<!DOCTYPE html><html><head><title>Closed</title></head><body style=\"margin:0;background:#000;color:#666;display:grid;place-items:center;height:100vh;font-family:sans-serif\">Access denied</body></html>");
+        document.close();
+      }
+
+      function tryEnter() {
+        const got = String(input.value || "").trim().toLowerCase();
+        if (!got) {
+          deny("Enter a key.");
+          return;
+        }
+        if (got !== KEY) {
+          deny("Wrong key. Closing…");
+          setTimeout(closeSite, 700);
+          return;
+        }
+        try { sessionStorage.setItem("emorce_hub_auth", "1"); } catch (e) {}
+        location.replace("/hub.html");
+      }
+
+      document.getElementById("enter").onclick = tryEnter;
+      document.getElementById("close").onclick = closeSite;
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") tryEnter();
+      });
+    })();
+  </script>
+</body>
+</html>

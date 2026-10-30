@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emorce Hub</title>
+  <style>
+    :root { --bg:#0a0809; --card:#141014; --line:#3a1520; --pink:#dc143c; --rose:#ff3264; --text:#f5f0f2; --muted:#a08e93; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: ui-sans-serif, system-ui, sans-serif; background: radial-gradient(1200px 600px at 20% -10%, #2a0a14 0%, var(--bg) 55%); color: var(--text); min-height:100vh; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 48px 20px 80px; }
+    h1 { font-size: 2rem; margin: 0 0 8px; }
+    h2 { font-size: 1.15rem; margin: 0 0 12px; }
+    p { color: var(--muted); line-height: 1.55; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; margin-top: 20px; }
+    pre { background:#0d0a0c; border:1px solid var(--line); border-radius:12px; padding:14px; overflow:auto; color:#ffc0d0; font-family: ui-monospace, Menlo, Consolas, monospace; font-size:.85rem; }
+    .btn { display:inline-flex; background: var(--pink); color:#fff; border:0; border-radius:10px; padding:10px 14px; font-weight:600; cursor:pointer; }
+    .btn:hover { background: var(--rose); }
+    .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:12px; }
+    .gcard { border:1px solid var(--line); border-radius:12px; padding:14px; background:#100c10; }
+    .gname { font-weight:600; margin-bottom:6px; }
+    .gmeta { color: var(--muted); font-size:12px; }
+    .top { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+    .ghost { background:transparent; border:1px solid var(--line); color:var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app" style="display:none">
+    <div class="top">
+      <div>
+        <h1>Emorce Hub</h1>
+        <p>Scripts unlocked. Use the loadstring in-game.</p>
+      </div>
+      <button class="btn ghost" id="logout" type="button">Log out</button>
+    </div>
+
+    <div class="card">
+      <h2>Loadstring</h2>
+      <pre id="ls">loadstring(game:HttpGet("https://emorce-hub.vercel.app/loader.lua"))()</pre>
+      <button class="btn" id="copyLs" style="margin-top:12px" type="button">Copy loadstring</button>
+    </div>
+
+    <div class="card">
+      <h2>Supported games</h2>
+      <div class="grid">
+        <div class="gcard"><div class="gname">99 Nights in the Forest</div><div class="gmeta">PlaceId 79546208627805</div></div>
+        <div class="gcard"><div class="gname">Aisle of the Locust</div><div class="gmeta">PlaceId 134728380684025</div></div>
+        <div class="gcard"><div class="gname">Animal Hospital</div><div class="gmeta">PlaceId 78515283254292</div></div>
+        <div class="gcard"><div class="gname">Anime Zero</div><div class="gmeta">PlaceId 114574503491412</div></div>
+        <div class="gcard"><div class="gname">Dandy's World</div><div class="gmeta">PlaceId 16116270224</div></div>
+        <div class="gcard"><div class="gname">Don't Let Him In</div><div class="gmeta">PlaceId 121165298854655</div></div>
+        <div class="gcard"><div class="gname">Evade</div><div class="gmeta">PlaceId 9872472334</div></div>
+        <div class="gcard"><div class="gname">Fling Things and People</div><div class="gmeta">PlaceId 6961824067</div></div>
+        <div class="gcard"><div class="gname">Forsaken</div><div class="gmeta">PlaceId 18687417158</div></div>
+        <div class="gcard"><div class="gname">Hush Valley</div><div class="gmeta">PlaceId 107535308163741</div></div>
+        <div class="gcard"><div class="gname">Illegal Soccer</div><div class="gmeta">PlaceId 126987974021910</div></div>
+        <div class="gcard"><div class="gname">Kabuki</div><div class="gmeta">PlaceId 128541381932893</div></div>
+        <div class="gcard"><div class="gname">Murder Mystery 2</div><div class="gmeta">PlaceId 142823291</div></div>
+        <div class="gcard"><div class="gname">Runaways</div><div class="gmeta">PlaceId 118418618261207</div></div>
+        <div class="gcard"><div class="gname">Steal An Egg</div><div class="gmeta">PlaceId 107778070777162</div></div>
+        <div class="gcard"><div class="gname">Survive a Million Monkeys</div><div class="gmeta">PlaceId 99409088950210</div></div>
+        <div class="gcard"><div class="gname">Tribes 3v3</div><div class="gmeta">PlaceId 72169370437173</div></div>
+        <div class="gcard"><div class="gname">Violence District</div><div class="gmeta">PlaceId 93978595733734</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>How it works</h2>
+      <p>1. Join a supported game.</p>
+      <p>2. Run the loadstring and unlock with your in-game key.</p>
+      <p>3. Loader resolves PlaceId and runs the matching Emorce script.</p>
+    </div>
+  </div>
+  <script>
+    (function () {
+      let ok = false;
+      try { ok = sessionStorage.getItem("emorce_hub_auth") === "1"; } catch (e) {}
+      if (!ok) {
+        location.replace("/");
+        return;
+      }
+      document.getElementById("app").style.display = "block";
+      document.getElementById("copyLs").onclick = async function () {
+        await navigator.clipboard.writeText(document.getElementById("ls").innerText);
+        this.textContent = "Copied";
+        setTimeout(() => this.textContent = "Copy loadstring", 1200);
+      };
+      document.getElementById("logout").onclick = function () {
+        try { sessionStorage.removeItem("emorce_hub_auth"); } catch (e) {}
+        location.replace("/");
+      };
+    })();
+  </script>
+</body>
+</html>
