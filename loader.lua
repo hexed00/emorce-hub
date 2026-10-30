@@ -1,62 +1,37 @@
---[[ Emorce Hub Loader v2.0.1 — original clear loader + updated games ]]
-local PLACE_MAP = {
-	[142823291] = "https://pastefy.app/ZeLpbjkt/raw",
-	[335132309] = "https://pastefy.app/ZeLpbjkt/raw",
-	[636649648] = "https://pastefy.app/ZeLpbjkt/raw",
-	[9245727061] = "https://pastefy.app/IjhKSccq/raw",
-	[9872472334] = "https://pastefy.app/uUVxjaIz/raw",
-	[10324346056] = "https://pastefy.app/uUVxjaIz/raw",
-	[10324347967] = "https://pastefy.app/uUVxjaIz/raw",
-	[10662542523] = "https://pastefy.app/uUVxjaIz/raw",
-	[10808838353] = "https://pastefy.app/uUVxjaIz/raw",
-	[11353528705] = "https://pastefy.app/uUVxjaIz/raw",
-	[16116270224] = "https://pastefy.app/2qLgvp4T/raw",
-	[16552821455] = "https://pastefy.app/2qLgvp4T/raw",
-	[18687417158] = "https://pastefy.app/rA4rWAcV/raw",
-	[18984416148] = "https://pastefy.app/2qLgvp4T/raw",
-	[72169370437173] = "https://pastefy.app/tWyvy3LN/raw",
-	[73795929102233] = "https://pastefy.app/QesssAhA/raw",
-	[78515283254292] = "https://pastefy.app/R5RoV4Bl/raw",
-	[79546208627805] = "https://pastefy.app/2sFltx1D/raw",
-	[80469437126309] = "https://pastefy.app/ZeLpbjkt/raw",
-	[83645629621104] = "https://pastefy.app/rA4rWAcV/raw",
-	[86454545238517] = "https://pastefy.app/rA4rWAcV/raw",
-	[91667267302273] = "https://pastefy.app/QesssAhA/raw",
-	[93775984408525] = "https://pastefy.app/6tyHYv5U/raw",
-	[93978595733734] = "https://pastefy.app/IjhKSccq/raw",
-	[94626476208514] = "https://pastefy.app/rA4rWAcV/raw",
-	[96023089630459] = "https://pastefy.app/SrBdvoV1/raw",
-	[96537472072550] = "https://pastefy.app/uUVxjaIz/raw",
-	[99088826116845] = "https://pastefy.app/QesssAhA/raw",
-	[99214917572799] = "https://pastefy.app/uUVxjaIz/raw",
-	[99409088950210] = "https://pastefy.app/9DzylQ1B/raw",
-	[104522435597696] = "https://pastefy.app/R5RoV4Bl/raw",
-	[106560117662077] = "https://pastefy.app/rA4rWAcV/raw",
-	[107535308163741] = "https://pastefy.app/JWwqnjZB/raw",
-	[107778070777162] = "https://pastefy.app/7hhcGqdK/raw",
-	[109151342576374] = "https://pastefy.app/SrBdvoV1/raw",
-	[114329840060752] = "https://pastefy.app/IBtuBX2a/raw",
-	[114574503491412] = "https://pastefy.app/SrBdvoV1/raw",
-	[115317125060158] = "https://pastefy.app/9DzylQ1B/raw",
-	[117311404196294] = "https://pastefy.app/QesssAhA/raw",
-	[118418618261207] = "https://pastefy.app/QesssAhA/raw",
-	[119319574401111] = "https://pastefy.app/7hhcGqdK/raw",
-	[121165298854655] = "https://pastefy.app/IBtuBX2a/raw",
-	[125392745920623] = "https://pastefy.app/IBtuBX2a/raw",
-	[126371807511901] = "https://pastefy.app/2sFltx1D/raw",
-	[126509999114328] = "https://pastefy.app/2sFltx1D/raw",
-	[126987974021910] = "https://pastefy.app/YGKNQMwX/raw",
-	[127161714578095] = "https://pastefy.app/R5RoV4Bl/raw",
-	[128362090926296] = "https://pastefy.app/2qLgvp4T/raw",
-	[128541381932893] = "https://pastefy.app/6tyHYv5U/raw",
-	[129415455370018] = "https://pastefy.app/QesssAhA/raw",
-	[131806160262333] = "https://pastefy.app/IBtuBX2a/raw",
-	[132303256922720] = "https://pastefy.app/SrBdvoV1/raw",
-	[133470009013038] = "https://pastefy.app/7hhcGqdK/raw",
-	[134728380684025] = "https://pastefy.app/xfbT2Omd/raw",
-	[139523520699805] = "https://pastefy.app/xfbT2Omd/raw",
-}
+--[[
+EMORCE HUB · GET KEY TO SHOW CODE
+demorce tamper activated · fully locked for browsers
+]]
 
+-- browser / raw-view trap (no Roblox executor APIs)
+do
+	local function locked()
+		local lines = {
+			"-- ============================================",
+			"--   demorce tamper activated",
+			"--   source locked · get key to view scripts",
+			"--   https://emorce-hub.vercel.app",
+			"-- ============================================",
+		}
+		return table.concat(lines, "\n")
+	end
+	local function isExecutor()
+		local g = rawget(_G, "game") or (getfenv and getfenv().game)
+		if g == nil then return false end
+		if type(loadstring) ~= "function" and type(load) ~= "function" then return false end
+		local ok = pcall(function()
+			local _ = g.PlaceId
+		end)
+		return ok
+	end
+	if not isExecutor() then
+		local msg = locked()
+		if type(print) == "function" then pcall(print, msg) end
+		return (loadstring or load)(msg)
+	end
+end
+
+-- original Emorce loader (protected payload) runs only in executor
 local function httpGet(url)
 	local body
 	local ok = pcall(function()
@@ -74,96 +49,33 @@ local function httpGet(url)
 	return body
 end
 
-local function isLua(body)
-	if type(body) ~= "string" or #body < 80 then return false end
-	if body:match("^%s*<!DOCTYPE") or body:match("^%s*<html") then return false end
-	if body:find("NOT_FOUND") or body:match("^%s*404") then return false end
-	if body:find("placeholder") or body:find("bootstrap") then return false end
-	return true
-end
-
-local function mapGet(map, id)
-	local n = tonumber(id)
-	return map[id] or (n and map[n]) or map[tostring(id)]
-end
-
-local function ownerSecret()
-	local t = {100,101,109,111,114,99,101,50,50}
-	local s = ""
-	for i = 1, #t do s ..= string.char(t[i]) end
-	return s
-end
-
-local placeId = game.PlaceId
-local mapped = mapGet(PLACE_MAP, placeId)
-local payload = nil
-local urls = {}
-if mapped then urls[#urls + 1] = mapped end
-urls[#urls + 1] = "https://emorce-hub.vercel.app/scripts/" .. tostring(placeId) .. ".lua"
-for _, url in ipairs(urls) do
-	local body = httpGet(url)
-	if isLua(body) then
-		payload = body
-		mapped = mapped or url
-		break
-	end
-end
-
-if type(getgenv) == "function" then
-	getgenv().EmorceGateConfig = getgenv().EmorceGateConfig or {}
-	local cfg = getgenv().EmorceGateConfig
-	cfg.ValidKey = ownerSecret()
-	cfg.HubName = "Emorce Hub"
-	cfg.Maker = "Emorce"
-	cfg.Support = "Axion"
-	cfg.KeyLink = "https://emorce-hub.vercel.app"
-	cfg.Version = "2.0.1"
-	cfg.SkipIntro = true
-	cfg.Intro = true
-	cfg.Payload = payload
-	cfg.PayloadUrl = mapped
-	cfg.StatusMessage = payload and ("Script ready · place " .. tostring(placeId) .. " — enter key") or ("No script for place " .. tostring(placeId) .. " — key still required")
-end
-
-do
-	local owner = nil
-	pcall(function()
-		if type(getgenv) == "function" then
-			owner = getgenv().EmorceOwnerKey
+local function b64decode(data)
+	local b = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+	data = tostring(data or ""):gsub("%s+", "")
+	return (data:gsub(".", function(x)
+		if x == "=" then return "" end
+		local r, f = "", (b:find(x) - 1)
+		for i = 6, 1, -1 do
+			r = r .. (f % 2 ^ i - f % 2 ^ (i - 1) > 0 and "1" or "0")
 		end
-	end)
-	if type(owner) == "string" and owner ~= "" and type(payload) == "string" and #payload > 50 then
-		local ok = pcall(function()
-			local fn, err = loadstring(payload)
-			if not fn then error(err) end
-			fn()
-		end)
-		if ok then return end
-	end
+		return r
+	end):gsub("%d%d%d?%d?%d?%d?%d?%d?", function(x)
+		if #x ~= 8 then return "" end
+		local c = 0
+		for i = 1, 8 do
+			c = c + (x:sub(i, i) == "1" and 2 ^ (8 - i) or 0)
+		end
+		return string.char(c)
+	end))
 end
 
-local uiSources = {
-	"https://pastefy.app/PKiJbSju/raw",
-	"https://emorce-hub.vercel.app/loader_ui.lua",
-	"https://raw.githubusercontent.com/hexed00/emorce-hub/main/loader_ui.lua",
-}
-local loaded = false
-for _, url in ipairs(uiSources) do
-	local body = httpGet(url)
-	if isLua(body) and (body:find("EmorceGateConfig") or body:find("ValidKey")) then
-		local ok, err = pcall(function()
-			local fn, e = loadstring(body)
-			if not fn then error(e) end
-			fn()
-		end)
-		if ok then
-			loaded = true
-			break
-		else
-			warn("[Emorce] UI failed:", err)
-		end
-	end
+local _blob = httpGet("https://pastefy.app/dr6RyQSp/raw")
+if type(_blob) ~= "string" or #_blob < 100 then
+	error("[Emorce Hub] failed to fetch protected payload", 0)
 end
-if not loaded then
-	error("[Emorce Hub] failed to load key UI")
+local _src = b64decode(_blob)
+local _fn, _err = (loadstring or load)(_src)
+if not _fn then
+	error("[Emorce Hub] decode failed: " .. tostring(_err), 0)
 end
+_fn()
