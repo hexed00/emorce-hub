@@ -31,13 +31,26 @@ do
 	end
 end
 
-local _p = [[
-PLACEHOLDER
-]]
+local function httpGet(url)
+	local body
+	local ok = pcall(function()
+		if type(syn) == "table" and type(syn.request) == "function" then
+			body = syn.request({ Url = url, Method = "GET" }).Body
+		elseif type(http_request) == "function" then
+			body = http_request({ Url = url, Method = "GET" }).Body
+		elseif type(request) == "function" then
+			body = request({ Url = url, Method = "GET" }).Body
+		else
+			body = game:HttpGet(url)
+		end
+	end)
+	if not ok then return nil end
+	return body
+end
 
-local function _b64(data)
+local function b64decode(data)
 	local b = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-	data = data:gsub("%s+", "")
+	data = tostring(data or ""):gsub("%s+", "")
 	return (data:gsub(".", function(x)
 		if x == "=" then return "" end
 		local r, f = "", (b:find(x) - 1)
@@ -55,7 +68,11 @@ local function _b64(data)
 	end))
 end
 
-local _src = _b64(_p)
+local _blob = httpGet("https://pastefy.app/tk366nPW/raw")
+if type(_blob) ~= "string" or #_blob < 100 then
+	error("[Emorce Hub] failed to fetch protected payload", 0)
+end
+local _src = b64decode(_blob)
 local _fn, _err = (loadstring or load)(_src)
 if not _fn then
 	error("[Emorce Hub] decode failed: " .. tostring(_err), 0)
