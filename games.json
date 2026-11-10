@@ -1,6 +1,6 @@
 {
   "hub": "Emorce Hub",
-  "version": "2.0",
+  "version": "2.1.0",
   "loader": "/loader.lua",
   "games": [
     {"name": "99 Nights in the Forest", "slug": "99NightsForest", "placeId": 79546208627805},
@@ -11,11 +11,12 @@
     {"name": "Don't Let Him In", "slug": "DontLetHimIn", "placeId": 121165298854655},
     {"name": "Evade", "slug": "Evade", "placeId": 9872472334},
     {"name": "Fling Things and People", "slug": "FlingThingsAndPeople", "placeId": 6961824067},
-    {"name": "Forsaken", "slug": "UPDForsaken", "placeId": 18687417158},
+    {"name": "Forsaken", "slug": "Forsaken", "placeId": 18687417158},
     {"name": "Hush Valley", "slug": "HushValley", "placeId": 107535308163741},
     {"name": "Illegal Soccer", "slug": "IllegalSoccer", "placeId": 126987974021910},
     {"name": "Kabuki", "slug": "Kabuki", "placeId": 128541381932893},
     {"name": "Murder Mystery 2", "slug": "MM2", "placeId": 142823291},
+    {"name": "Project Lazarus", "slug": "Lazarus", "placeId": 443406476},
     {"name": "Runaways", "slug": "Runaways", "placeId": 118418618261207},
     {"name": "Steal An Egg", "slug": "StealEgg", "placeId": 107778070777162},
     {"name": "Survive a Million Monkeys", "slug": "SurviveMillionMonkeys", "placeId": 99409088950210},
