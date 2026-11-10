@@ -33,20 +33,19 @@
       </div>
       <button class="btn ghost" id="logout" type="button">Log out</button>
     </div>
-
     <div class="card">
       <h2>Loadstring</h2>
       <pre id="ls">loadstring(game:HttpGet("https://emorce-hub.vercel.app/loader.lua"))()</pre>
       <button class="btn" id="copyLs" style="margin-top:12px" type="button">Copy loadstring</button>
     </div>
-
     <div class="card">
-      <h2>Supported games (20)</h2>
+      <h2>Supported games (21)</h2>
       <div class="grid">
         <div class="gcard"><div class="gname">99 Nights in the Forest</div><div class="gmeta">PlaceId 79546208627805</div></div>
         <div class="gcard"><div class="gname">Aisle of the Locust</div><div class="gmeta">PlaceId 134728380684025</div></div>
         <div class="gcard"><div class="gname">Animal Hospital</div><div class="gmeta">PlaceId 78515283254292</div></div>
         <div class="gcard"><div class="gname">Anime Zero</div><div class="gmeta">PlaceId 114574503491412</div></div>
+        <div class="gcard"><div class="gname">Arsenal</div><div class="gmeta">PlaceId 286090429</div></div>
         <div class="gcard"><div class="gname">Dandy's World</div><div class="gmeta">PlaceId 16116270224</div></div>
         <div class="gcard"><div class="gname">Don't Let Him In</div><div class="gmeta">PlaceId 121165298854655</div></div>
         <div class="gcard"><div class="gname">Dueling Grounds</div><div class="gmeta">PlaceId 94217045453265</div></div>
@@ -65,7 +64,6 @@
         <div class="gcard"><div class="gname">Violence District</div><div class="gmeta">PlaceId 93978595733734</div></div>
       </div>
     </div>
-
     <div class="card">
       <h2>How it works</h2>
       <p>1. Join a supported game.</p>
@@ -77,10 +75,7 @@
     (function () {
       let ok = false;
       try { ok = sessionStorage.getItem("emorce_hub_auth") === "1"; } catch (e) {}
-      if (!ok) {
-        location.replace("/");
-        return;
-      }
+      if (!ok) { location.replace("/"); return; }
       document.getElementById("app").style.display = "block";
       document.getElementById("copyLs").onclick = async function () {
         await navigator.clipboard.writeText(document.getElementById("ls").innerText);

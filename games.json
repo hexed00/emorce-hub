@@ -1,12 +1,13 @@
 {
   "hub": "Emorce Hub",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "loader": "/loader.lua",
   "games": [
     {"name": "99 Nights in the Forest", "slug": "99NightsForest", "placeId": 79546208627805},
     {"name": "Aisle of the Locust", "slug": "AisleOfTheLocust", "placeId": 134728380684025},
     {"name": "Animal Hospital", "slug": "AnimalHospital", "placeId": 78515283254292},
     {"name": "Anime Zero", "slug": "AnimeZero", "placeId": 114574503491412},
+    {"name": "Arsenal", "slug": "Arsenal", "placeId": 286090429},
     {"name": "Dandy's World", "slug": "DandysWorld", "placeId": 16116270224},
     {"name": "Don't Let Him In", "slug": "DontLetHimIn", "placeId": 121165298854655},
     {"name": "Dueling Grounds", "slug": "DuelingGrounds", "placeId": 94217045453265},
