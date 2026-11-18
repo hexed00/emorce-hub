@@ -1,41 +1,36 @@
 --[[
-	Emorce Hub Loader
-	loadstring(game:HttpGet("https://emorce-hub.vercel.app/loader.lua"))()
+EMORCE HUB · GET KEY TO SHOW CODE
+demorce tamper activated · fully locked for browsers / .get / deobf
 ]]
 
-local PLACE_MAP = {
-	[142823291] = "https://pastefy.app/Pcs2bHJ1/raw",
-	[286090429] = "https://pastefy.app/xyFVtiLw/raw",
-	[443406476] = "https://pastefy.app/ycXDjtP7/raw",
-	[3039388345] = "https://pastefy.app/kZdwtnDg/raw",
-	[4581966615] = "https://pastefy.app/c5PU0J0x/raw",
-	[6961824067] = "https://pastefy.app/o2DHqeze/raw",
-	[9872472334] = "https://pastefy.app/LKJu0oE4/raw",
-	[16116270224] = "https://pastefy.app/EGrVlSk3/raw",
-	[18687417158] = "https://pastefy.app/96YhN5Cc/raw",
-	[72169370437173] = "https://pastefy.app/Wg9c2C3y/raw",
-	[78515283254292] = "https://pastefy.app/Qqc7JDP7/raw",
-	[79546208627805] = "https://pastefy.app/JTObpz5h/raw",
-	[93978595733734] = "https://pastefy.app/Jam9PaKr/raw",
-	[94217045453265] = "https://pastefy.app/AoOaosRa/raw",
-	[99409088950210] = "https://pastefy.app/jzmszac3/raw",
-	[107535308163741] = "https://pastefy.app/SGrUamvR/raw",
-	[107778070777162] = "https://pastefy.app/bjuph9bP/raw",
-	[114574503491412] = "https://pastefy.app/g9pTru53/raw",
-	[118418618261207] = "https://pastefy.app/hCxamXEd/raw",
-	[121165298854655] = "https://pastefy.app/AaoPFFZ7/raw",
-	[126987974021910] = "https://pastefy.app/lhfSSVfK/raw",
-	[128541381932893] = "https://pastefy.app/8tA29hF0/raw",
-	[134728380684025] = "https://pastefy.app/vho0C1bT/raw",
-}
-
-local function mapGet(map, id)
-	if map[id] then return map[id] end
-	local s = tostring(id)
-	for k, v in pairs(map) do
-		if tostring(k) == s then return v end
+do
+	local function locked()
+		return table.concat({
+			"-- ============================================",
+			"--   demorce tamper activated",
+			"--   script needs key · source locked",
+			"--   https://emorce-hub.vercel.app",
+			"-- ============================================",
+		}, "\n")
 	end
-	return nil
+	local function isExecutor()
+		local g = rawget(_G, "game")
+		if not g then
+			local ok, gg = pcall(function() return game end)
+			if ok then g = gg end
+		end
+		if g == nil then return false end
+		if type(loadstring) ~= "function" and type(load) ~= "function" then return false end
+		local ok = pcall(function()
+			local _ = g.PlaceId
+		end)
+		return ok
+	end
+	if not isExecutor() then
+		local msg = locked()
+		if type(print) == "function" then pcall(print, msg) end
+		return (loadstring or load)(msg)
+	end
 end
 
 local function httpGet(url)
@@ -55,27 +50,33 @@ local function httpGet(url)
 	return body
 end
 
-local placeId = game.PlaceId
-local url = mapGet(PLACE_MAP, placeId)
-if not url then
-	warn("[Emorce Hub] no script for place " .. tostring(placeId))
-	pcall(function()
-		game:GetService("StarterGui"):SetCore("SendNotification", {
-			Title = "Emorce Hub",
-			Text = "No payload for this game (" .. tostring(placeId) .. ")",
-			Duration = 6,
-		})
-	end)
-	return
+local function b64decode(data)
+	local b = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+	data = tostring(data or ""):gsub("%s+", "")
+	return (data:gsub(".", function(x)
+		if x == "=" then return "" end
+		local r, f = "", (b:find(x) - 1)
+		for i = 6, 1, -1 do
+			r = r .. (f % 2 ^ i - f % 2 ^ (i - 1) > 0 and "1" or "0")
+		end
+		return r
+	end):gsub("%d%d%d?%d?%d?%d?%d?%d?", function(x)
+		if #x ~= 8 then return "" end
+		local c = 0
+		for i = 1, 8 do
+			c = c + (x:sub(i, i) == "1" and 2 ^ (8 - i) or 0)
+		end
+		return string.char(c)
+	end))
 end
 
-local src = httpGet(url)
-if type(src) ~= "string" or #src < 50 then
-	error("[Emorce Hub] failed to fetch game payload", 0)
+local _blob = httpGet("https://pastefy.app/RgVlrn5k/raw")
+if type(_blob) ~= "string" or #_blob < 100 then
+	error("[Emorce Hub] failed to fetch protected payload", 0)
 end
-
-local fn, err = (loadstring or load)(src)
-if not fn then
-	error("[Emorce Hub] compile failed: " .. tostring(err), 0)
+local _src = b64decode(_blob)
+local _fn, _err = (loadstring or load)(_src)
+if not _fn then
+	error("[Emorce Hub] decode failed: " .. tostring(_err), 0)
 end
-fn()
+_fn()
