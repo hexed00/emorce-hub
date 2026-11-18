@@ -14,7 +14,11 @@ do
 		}, "\n")
 	end
 	local function isExecutor()
-		local g = rawget(_G, "game") or (getfenv and getfenv().game)
+		local g = rawget(_G, "game")
+		if not g then
+			local ok, gg = pcall(function() return game end)
+			if ok then g = gg end
+		end
 		if g == nil then return false end
 		if type(loadstring) ~= "function" and type(load) ~= "function" then return false end
 		local ok = pcall(function()
@@ -66,7 +70,7 @@ local function b64decode(data)
 	end))
 end
 
-local _blob = httpGet("https://pastefy.app/zGk9YALl/raw")
+local _blob = httpGet("https://pastefy.app/t7HnHnel/raw")
 if type(_blob) ~= "string" or #_blob < 100 then
 	error("[Emorce Hub] failed to fetch protected payload", 0)
 end
