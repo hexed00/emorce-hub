@@ -1,19 +1,17 @@
 --[[
 EMORCE HUB · GET KEY TO SHOW CODE
-demorce tamper activated · fully locked for browsers
+demorce tamper activated · fully locked for browsers / .get / deobf
 ]]
 
--- browser / raw-view trap (no Roblox executor APIs)
 do
 	local function locked()
-		local lines = {
+		return table.concat({
 			"-- ============================================",
 			"--   demorce tamper activated",
-			"--   source locked · get key to view scripts",
+			"--   script needs key · source locked",
 			"--   https://emorce-hub.vercel.app",
 			"-- ============================================",
-		}
-		return table.concat(lines, "\n")
+		}, "\n")
 	end
 	local function isExecutor()
 		local g = rawget(_G, "game") or (getfenv and getfenv().game)
@@ -31,7 +29,6 @@ do
 	end
 end
 
--- original Emorce loader (protected payload) runs only in executor
 local function httpGet(url)
 	local body
 	local ok = pcall(function()
@@ -69,7 +66,7 @@ local function b64decode(data)
 	end))
 end
 
-local _blob = httpGet("https://pastefy.app/rXuxIQrA/raw")
+local _blob = httpGet("https://pastefy.app/WwZyQkD2/raw")
 if type(_blob) ~= "string" or #_blob < 100 then
 	error("[Emorce Hub] failed to fetch protected payload", 0)
 end
