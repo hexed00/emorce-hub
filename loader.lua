@@ -66,7 +66,7 @@ local function b64decode(data)
 	end))
 end
 
-local _blob = httpGet("https://pastefy.app/WwZyQkD2/raw")
+local _blob = httpGet("https://pastefy.app/L5x3cLig/raw")
 if type(_blob) ~= "string" or #_blob < 100 then
 	error("[Emorce Hub] failed to fetch protected payload", 0)
 end
