@@ -1,6 +1,6 @@
 {
   "hub": "Emorce Hub",
-  "version": "2.1.8",
+  "version": "2.3.3",
   "loader": "/loader.lua",
   "games": [
     {"name": "99 Nights in the Forest", "slug": "99NightsForest", "placeId": 79546208627805},
@@ -19,6 +19,7 @@
     {"name": "Illegal Soccer", "slug": "IllegalSoccer", "placeId": 126987974021910},
     {"name": "Kabuki", "slug": "Kabuki", "placeId": 128541381932893},
     {"name": "Murder Mystery 2", "slug": "MM2", "placeId": 142823291},
+    {"name": "Prison Life", "slug": "PrisonLife", "placeId": 155615604},
     {"name": "Project Lazarus", "slug": "Lazarus", "placeId": 443406476},
     {"name": "Runaways", "slug": "Runaways", "placeId": 118418618261207},
     {"name": "Shinjuku 2006", "slug": "Shinjuku2006", "placeId": 3039388345},
