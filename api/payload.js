@@ -1,4 +1,4 @@
-// Emorce Hub · SA-only · rotated client · key server-side · vercel country only
+// Emorce Hub · 1 seat · no region lock · key server-side
 const PLACE_MAP = {
   "142823291": "https://pastefy.app/zvocgiLo/raw",
   "155615604": "https://pastefy.app/rksICSVS/raw",
@@ -28,11 +28,13 @@ const PLACE_MAP = {
 };
 
 const VALID_KEY = "demorce22";
-const ALLOW_COUNTRIES = new Set(["ZA"]);
+const SEAT_MS = 20 * 60 * 1000;
+
+let SEAT = null;
 
 const LOCKED = `-- ============================================\n--   demorce tamper activated\n--   script needs key · source locked\n--   https://emorce-hub.vercel.app\n-- ============================================\n`;
 
-const KICK = `-- Emorce · region locked\npcall(function()\n  local p = game:GetService("Players").LocalPlayer\n  if p then p:Kick("Emorce Hub · region locked") end\nend)\nreturn\n`;
+const BUSY = `-- Emorce · seat taken\npcall(function()\n  local p = game:GetService("Players").LocalPlayer\n  if p then p:Kick("Emorce Hub · only 1 user at a time") end\nend)\nreturn\n`;
 
 const BROKEN = `-- Emorce · environment rejected\nerror("EmorceHub: invalid environment", 0)\n`;
 
@@ -54,34 +56,6 @@ function normalizeKey(k) {
   return String(k || "").replace(/\s+/g, "").toUpperCase();
 }
 
-function clientIp(req) {
-  const xf = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
-  const real = String(req.headers["x-real-ip"] || "").trim();
-  const vercel = String(req.headers["x-vercel-forwarded-for"] || "").split(",")[0].trim();
-  return xf || real || vercel || "";
-}
-
-function countryFromHeaders(req) {
-  // Only trust Vercel edge country — CF-IPCountry / XFF are spoofable
-  const c = req.headers["x-vercel-ip-country"] || "";
-  return String(c || "").toUpperCase().trim();
-}
-
-async function countryLookup(ip) {
-  if (!ip || ip === "127.0.0.1" || ip.startsWith("10.") || ip.startsWith("192.168.")) {
-    return "";
-  }
-  try {
-    const r = await fetch("http://ip-api.com/json/" + encodeURIComponent(ip) + "?fields=status,countryCode", {
-      headers: { "User-Agent": "emorce-hub/geo" },
-    });
-    if (!r.ok) return "";
-    const j = await r.json();
-    if (j && j.status === "success") return String(j.countryCode || "").toUpperCase();
-  } catch (e) {}
-  return "";
-}
-
 function looksLikeBrowser(req) {
   const ua = String(req.headers["user-agent"] || "").toLowerCase();
   const accept = String(req.headers["accept"] || "").toLowerCase();
@@ -99,6 +73,16 @@ function isEmorceClient(req, body) {
   const ua = String(req.headers["user-agent"] || "").toLowerCase();
   if (/synapse|fluxus|wave|solara|krnl|script-ware|oxygen|emorce|hexpulse|roblox/i.test(ua)) return true;
   return false;
+}
+
+function claimSeat(token) {
+  const now = Date.now();
+  const t = String(token || "").trim() || ("anon-" + now);
+  if (SEAT && SEAT.until > now && SEAT.token !== t) {
+    return false;
+  }
+  SEAT = { token: t, until: now + SEAT_MS };
+  return true;
 }
 
 module.exports = async function handler(req, res) {
@@ -127,6 +111,7 @@ module.exports = async function handler(req, res) {
   const body = await readBody(req);
   const key = normalizeKey(body.key || body.scriptKey || req.headers["x-emorce-key"]);
   const placeId = String(body.placeId || body.place || "").trim();
+  const sessionId = String(body.sessionId || body.seat || "").trim();
 
   if (key !== normalizeKey(VALID_KEY)) {
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
@@ -140,15 +125,10 @@ module.exports = async function handler(req, res) {
     return res.end(BROKEN);
   }
 
-  let country = countryFromHeaders(req);
-  if (!country) {
-    const ip = clientIp(req);
-    country = await countryLookup(ip);
-  }
-  if (!ALLOW_COUNTRIES.has(country)) {
+  if (!claimSeat(sessionId || key)) {
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
     res.statusCode = 200;
-    return res.end(KICK);
+    return res.end(BUSY);
   }
 
   if (!placeId) {
