@@ -1,4 +1,4 @@
-// Emorce Hub · KEY SERVER-SIDE ONLY · rotated pastes · GET locked
+// Emorce Hub · SA-only · Roblox client · key server-side · rotated map
 const PLACE_MAP = {
   "142823291": "https://pastefy.app/zvocgiLo/raw",
   "155615604": "https://pastefy.app/rksICSVS/raw",
@@ -28,8 +28,13 @@ const PLACE_MAP = {
 };
 
 const VALID_KEY = "demorce22";
+const ALLOW_COUNTRIES = new Set(["ZA"]);
 
 const LOCKED = `-- ============================================\n--   demorce tamper activated\n--   script needs key · source locked\n--   https://emorce-hub.vercel.app\n-- ============================================\n`;
+
+const KICK = `-- Emorce · region locked\npcall(function()\n  local p = game:GetService("Players").LocalPlayer\n  if p then p:Kick("Emorce Hub · region locked") end\nend)\nreturn\n`;
+
+const BROKEN = `-- Emorce · environment rejected\nerror("EmorceHub: invalid environment", 0)\n`;
 
 function readBody(req) {
   return new Promise((resolve) => {
@@ -49,10 +54,61 @@ function normalizeKey(k) {
   return String(k || "").replace(/\s+/g, "").toUpperCase();
 }
 
+function clientIp(req) {
+  const xf = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+  const real = String(req.headers["x-real-ip"] || "").trim();
+  const vercel = String(req.headers["x-vercel-forwarded-for"] || "").split(",")[0].trim();
+  return xf || real || vercel || "";
+}
+
+function countryFromHeaders(req) {
+  const c =
+    req.headers["x-vercel-ip-country"] ||
+    req.headers["cf-ipcountry"] ||
+    req.headers["x-country-code"] ||
+    req.headers["cloudfront-viewer-country"] ||
+    "";
+  return String(c || "").toUpperCase().trim();
+}
+
+async function countryLookup(ip) {
+  if (!ip || ip === "127.0.0.1" || ip.startsWith("10.") || ip.startsWith("192.168.")) {
+    return "";
+  }
+  try {
+    const r = await fetch("http://ip-api.com/json/" + encodeURIComponent(ip) + "?fields=status,countryCode", {
+      headers: { "User-Agent": "emorce-hub/geo" },
+    });
+    if (!r.ok) return "";
+    const j = await r.json();
+    if (j && j.status === "success") return String(j.countryCode || "").toUpperCase();
+  } catch (e) {}
+  return "";
+}
+
+function looksLikeBrowser(req) {
+  const ua = String(req.headers["user-agent"] || "").toLowerCase();
+  const accept = String(req.headers["accept"] || "").toLowerCase();
+  if (accept.includes("text/html")) return true;
+  if (/mozilla|chrome|safari|firefox|edg\//i.test(ua) && !/roblox|executor|synapse|fluxus|wave|solara|emorce/i.test(ua)) {
+    return true;
+  }
+  return false;
+}
+
+function isEmorceClient(req, body) {
+  const h = String(req.headers["x-emorce-client"] || "").toLowerCase();
+  const mark = String((body && body.client) || "").toLowerCase();
+  if (h === "roblox-executor" || mark === "roblox-executor") return true;
+  const ua = String(req.headers["user-agent"] || "").toLowerCase();
+  if (/synapse|fluxus|wave|solara|krnl|script-ware|oxygen|emorce|roblox/i.test(ua)) return true;
+  return false;
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Emorce-Key");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Emorce-Key, X-Emorce-Client");
   res.setHeader("Cache-Control", "no-store");
 
   if (req.method === "OPTIONS") {
@@ -80,6 +136,23 @@ module.exports = async function handler(req, res) {
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
     res.statusCode = 403;
     return res.end(LOCKED);
+  }
+
+  if (looksLikeBrowser(req) || !isEmorceClient(req, body)) {
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.statusCode = 403;
+    return res.end(BROKEN);
+  }
+
+  let country = countryFromHeaders(req);
+  if (!country) {
+    const ip = clientIp(req);
+    country = await countryLookup(ip);
+  }
+  if (!ALLOW_COUNTRIES.has(country)) {
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.statusCode = 200;
+    return res.end(KICK);
   }
 
   if (!placeId) {
