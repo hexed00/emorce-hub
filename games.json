@@ -1,6 +1,6 @@
 {
   "hub": "Emorce Hub",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "loader": "/loader.lua",
   "games": [
     {"name": "99 Nights in the Forest", "slug": "99NightsForest", "placeId": 79546208627805},
@@ -22,6 +22,7 @@
     {"name": "Prison Life", "slug": "PrisonLife", "placeId": 155615604},
     {"name": "Project Lazarus", "slug": "Lazarus", "placeId": 443406476},
     {"name": "Runaways", "slug": "Runaways", "placeId": 118418618261207},
+    {"name": "SharkBite 2", "slug": "SharkBite2", "placeId": 8908228901},
     {"name": "Shinjuku 2006", "slug": "Shinjuku2006", "placeId": 3039388345},
     {"name": "Steal An Egg", "slug": "StealEgg", "placeId": 107778070777162},
     {"name": "Survive a Million Monkeys", "slug": "SurviveMillionMonkeys", "placeId": 99409088950210},
