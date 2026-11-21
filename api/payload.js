@@ -1,13 +1,13 @@
 // Emorce Hub · place-only delivery · map never in client
 const PLACE_MAP = {
   "142823291": "https://pastefy.app/tOtemoYf/raw",
-  "155615604": "https://pastefy.app/JdOp1T0N/raw",
+  "155615604": "https://pastefy.app/l0v6m7AL/raw",
   "286090429": "https://pastefy.app/scP3mXh3/raw",
   "443406476": "https://pastefy.app/AXAvFFok/raw",
-  "3039388345": "https://pastefy.app/Hvw6leGQ/raw",
+  "3039388345": "https://pastefy.app/C0651pWb/raw",
   "4581966615": "https://pastefy.app/Kt0EnPZ6/raw",
   "6961824067": "https://pastefy.app/2xDGGAVT/raw",
-  "8908228901": "https://pastefy.app/L3lPbrtG/raw",
+  "8908228901": "https://pastefy.app/oGQx3RRj/raw",
   "9872472334": "https://pastefy.app/PgeaVa8t/raw",
   "16116270224": "https://pastefy.app/kT8Udfys/raw",
   "18687417158": "https://pastefy.app/nLpDGZqe/raw",
