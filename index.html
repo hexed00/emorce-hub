@@ -117,7 +117,6 @@
   </div>
   <script>
     (function () {
-      const KEY = "demorce22";
       const input = document.getElementById("key");
       const msg = document.getElementById("msg");
 
@@ -134,13 +133,26 @@
         document.close();
       }
 
-      function tryEnter() {
-        const got = String(input.value || "").trim().toLowerCase();
+      async function tryEnter() {
+        const got = String(input.value || "").trim();
         if (!got) {
           deny("Enter a key.");
           return;
         }
-        if (got !== KEY) {
+        msg.textContent = "Checking…";
+        let ok = false;
+        try {
+          const r = await fetch("/api/auth", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ key: got }),
+          });
+          const j = await r.json().catch(function () { return {}; });
+          ok = !!(r.ok && j && j.ok === true);
+        } catch (e) {
+          ok = false;
+        }
+        if (!ok) {
           deny("Wrong key. Closing…");
           setTimeout(closeSite, 700);
           return;
