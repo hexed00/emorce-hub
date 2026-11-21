@@ -1,4 +1,4 @@
-// Emorce Hub · SA-only · Roblox client · key server-side · rotated map
+// Emorce Hub · SA-only · rotated client · key server-side · vercel country only
 const PLACE_MAP = {
   "142823291": "https://pastefy.app/zvocgiLo/raw",
   "155615604": "https://pastefy.app/rksICSVS/raw",
@@ -62,12 +62,8 @@ function clientIp(req) {
 }
 
 function countryFromHeaders(req) {
-  const c =
-    req.headers["x-vercel-ip-country"] ||
-    req.headers["cf-ipcountry"] ||
-    req.headers["x-country-code"] ||
-    req.headers["cloudfront-viewer-country"] ||
-    "";
+  // Only trust Vercel edge country — CF-IPCountry / XFF are spoofable
+  const c = req.headers["x-vercel-ip-country"] || "";
   return String(c || "").toUpperCase().trim();
 }
 
@@ -90,7 +86,7 @@ function looksLikeBrowser(req) {
   const ua = String(req.headers["user-agent"] || "").toLowerCase();
   const accept = String(req.headers["accept"] || "").toLowerCase();
   if (accept.includes("text/html")) return true;
-  if (/mozilla|chrome|safari|firefox|edg\//i.test(ua) && !/roblox|executor|synapse|fluxus|wave|solara|emorce/i.test(ua)) {
+  if (/mozilla|chrome|safari|firefox|edg\//i.test(ua) && !/roblox|executor|synapse|fluxus|wave|solara|emorce|hexpulse/i.test(ua)) {
     return true;
   }
   return false;
@@ -99,9 +95,9 @@ function looksLikeBrowser(req) {
 function isEmorceClient(req, body) {
   const h = String(req.headers["x-emorce-client"] || "").toLowerCase();
   const mark = String((body && body.client) || "").toLowerCase();
-  if (h === "roblox-executor" || mark === "roblox-executor") return true;
+  if (h === "hex-pulse-7f3a" || mark === "hex-pulse-7f3a") return true;
   const ua = String(req.headers["user-agent"] || "").toLowerCase();
-  if (/synapse|fluxus|wave|solara|krnl|script-ware|oxygen|emorce|roblox/i.test(ua)) return true;
+  if (/synapse|fluxus|wave|solara|krnl|script-ware|oxygen|emorce|hexpulse|roblox/i.test(ua)) return true;
   return false;
 }
 
