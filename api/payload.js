@@ -1,4 +1,4 @@
-// Emorce Hub · 1 seat · no region lock · key server-side
+// Emorce Hub · 2 seats · no region lock · key server-side
 const PLACE_MAP = {
   "142823291": "https://pastefy.app/zvocgiLo/raw",
   "155615604": "https://pastefy.app/rksICSVS/raw",
@@ -30,11 +30,11 @@ const PLACE_MAP = {
 const VALID_KEY = "demorce22";
 const SEAT_MS = 20 * 60 * 1000;
 
-let SEAT = null;
+let SEATS = []; // [{ token, until }] max 2
 
 const LOCKED = `-- ============================================\n--   demorce tamper activated\n--   script needs key · source locked\n--   https://emorce-hub.vercel.app\n-- ============================================\n`;
 
-const BUSY = `-- Emorce · seat taken\npcall(function()\n  local p = game:GetService("Players").LocalPlayer\n  if p then p:Kick("Emorce Hub · only 1 user at a time") end\nend)\nreturn\n`;
+const BUSY = `-- Emorce · seat taken\npcall(function()\n  local p = game:GetService("Players").LocalPlayer\n  if p then p:Kick("Emorce Hub · seats full · max 2 users") end\nend)\nreturn\n`;
 
 const BROKEN = `-- Emorce · environment rejected\nerror("EmorceHub: invalid environment", 0)\n`;
 
@@ -78,10 +78,16 @@ function isEmorceClient(req, body) {
 function claimSeat(token) {
   const now = Date.now();
   const t = String(token || "").trim() || ("anon-" + now);
-  if (SEAT && SEAT.until > now && SEAT.token !== t) {
+  SEATS = SEATS.filter((s) => s.until > now);
+  const existing = SEATS.find((s) => s.token === t);
+  if (existing) {
+    existing.until = now + SEAT_MS;
+    return true;
+  }
+  if (SEATS.length >= 2) {
     return false;
   }
-  SEAT = { token: t, until: now + SEAT_MS };
+  SEATS.push({ token: t, until: now + SEAT_MS });
   return true;
 }
 
