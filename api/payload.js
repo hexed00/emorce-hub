@@ -10,6 +10,7 @@ const PLACE_MAP = {
   "8908228901": "https://pastefy.app/AnYAyT1R/raw",
   "9872472334": "https://pastefy.app/iVzAclHg/raw",
   "16116270224": "https://pastefy.app/nqlBvaat/raw",
+  "17625359962": "https://pastefy.app/e6i7kZY2/raw",
   "18687417158": "https://pastefy.app/LNjf3L70/raw",
   "72169370437173": "https://pastefy.app/tCqDC4ao/raw",
   "78515283254292": "https://pastefy.app/70xMfjHF/raw",
@@ -103,15 +104,15 @@ module.exports = async function handler(req, res) {
     return res.end();
   }
 
-  if (req.method === "GET") {
-    res.setHeader("Content-Type", "text/plain; charset=utf-8");
-    res.statusCode = 403;
-    return res.end(LOCKED);
-  }
-
   if (req.method !== "POST") {
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
     res.statusCode = 405;
+    return res.end(LOCKED);
+  }
+
+  if (req.method === "GET") {
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.statusCode = 403;
     return res.end(LOCKED);
   }
 
