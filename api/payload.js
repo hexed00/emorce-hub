@@ -1,4 +1,4 @@
-// Emorce Hub · place-only delivery · map never in client
+// Emorce Hub · KEY REQUIRED · place-only · map never in client
 const PLACE_MAP = {
   "142823291": "https://pastefy.app/tOtemoYf/raw",
   "155615604": "https://pastefy.app/l0v6m7AL/raw",
@@ -27,11 +27,31 @@ const PLACE_MAP = {
   "134728380684025": "https://pastefy.app/wipf29cS/raw"
 };
 
+const VALID_KEY = "demorce22";
+
 const LOCKED = `-- ============================================\n--   demorce tamper activated\n--   script needs key · source locked\n--   https://emorce-hub.vercel.app\n-- ============================================\n`;
+
+function readBody(req) {
+  return new Promise((resolve) => {
+    if (req.body && typeof req.body === "object") return resolve(req.body);
+    if (typeof req.body === "string") {
+      try { return resolve(JSON.parse(req.body)); } catch (e) { return resolve({}); }
+    }
+    let data = "";
+    req.on("data", (c) => { data += c; });
+    req.on("end", () => {
+      try { resolve(JSON.parse(data || "{}")); } catch (e) { resolve({}); }
+    });
+  });
+}
+
+function normalizeKey(k) {
+  return String(k || "").replace(/\s+/g, "").toUpperCase();
+}
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Emorce-Key");
   res.setHeader("Cache-Control", "no-store");
 
@@ -40,27 +60,25 @@ module.exports = async function handler(req, res) {
     return res.end();
   }
 
-  let placeId = "";
   if (req.method === "GET") {
-    placeId = String((req.query && (req.query.placeId || req.query.place)) || "").trim();
-  } else if (req.method === "POST") {
-    let body = req.body;
-    if (typeof body === "string") {
-      try { body = JSON.parse(body); } catch (e) { body = {}; }
-    }
-    if (!body || typeof body !== "object") {
-      body = await new Promise((resolve) => {
-        let data = "";
-        req.on("data", (c) => { data += c; });
-        req.on("end", () => {
-          try { resolve(JSON.parse(data || "{}")); } catch (e) { resolve({}); }
-        });
-      });
-    }
-    placeId = String(body.placeId || body.place || "").trim();
-  } else {
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.statusCode = 403;
+    return res.end(LOCKED);
+  }
+
+  if (req.method !== "POST") {
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
     res.statusCode = 405;
+    return res.end(LOCKED);
+  }
+
+  const body = await readBody(req);
+  const key = normalizeKey(body.key || body.scriptKey || req.headers["x-emorce-key"]);
+  const placeId = String(body.placeId || body.place || "").trim();
+
+  if (key !== normalizeKey(VALID_KEY)) {
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.statusCode = 403;
     return res.end(LOCKED);
   }
 
