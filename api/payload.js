@@ -1,5 +1,4 @@
-// Emorce Hub · key-gated payload delivery
-// PLACE_MAP lives only here. Never in client Lua.
+// Emorce Hub · place-only delivery · map never in client
 const PLACE_MAP = {
   "142823291": "https://pastefy.app/tOtemoYf/raw",
   "155615604": "https://pastefy.app/JdOp1T0N/raw",
@@ -28,27 +27,11 @@ const PLACE_MAP = {
   "134728380684025": "https://pastefy.app/wipf29cS/raw"
 };
 
-const VALID_KEY = "demorce22";
-
 const LOCKED = `-- ============================================\n--   demorce tamper activated\n--   script needs key · source locked\n--   https://emorce-hub.vercel.app\n-- ============================================\n`;
-
-function readBody(req) {
-  return new Promise((resolve) => {
-    if (req.body && typeof req.body === "object") return resolve(req.body);
-    if (typeof req.body === "string") {
-      try { return resolve(JSON.parse(req.body)); } catch (e) { return resolve({}); }
-    }
-    let data = "";
-    req.on("data", (c) => { data += c; });
-    req.on("end", () => {
-      try { resolve(JSON.parse(data || "{}")); } catch (e) { resolve({}); }
-    });
-  });
-}
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Emorce-Key");
   res.setHeader("Cache-Control", "no-store");
 
@@ -57,20 +40,34 @@ module.exports = async function handler(req, res) {
     return res.end();
   }
 
-  if (req.method !== "POST") {
+  let placeId = "";
+  if (req.method === "GET") {
+    placeId = String((req.query && (req.query.placeId || req.query.place)) || "").trim();
+  } else if (req.method === "POST") {
+    let body = req.body;
+    if (typeof body === "string") {
+      try { body = JSON.parse(body); } catch (e) { body = {}; }
+    }
+    if (!body || typeof body !== "object") {
+      body = await new Promise((resolve) => {
+        let data = "";
+        req.on("data", (c) => { data += c; });
+        req.on("end", () => {
+          try { resolve(JSON.parse(data || "{}")); } catch (e) { resolve({}); }
+        });
+      });
+    }
+    placeId = String(body.placeId || body.place || "").trim();
+  } else {
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
     res.statusCode = 405;
     return res.end(LOCKED);
   }
 
-  const body = await readBody(req);
-  const key = String(body.key || body.scriptKey || req.headers["x-emorce-key"] || "").trim();
-  const placeId = String(body.placeId || body.place || "").trim();
-
-  if (key !== VALID_KEY) {
+  if (!placeId) {
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
-    res.statusCode = 403;
-    return res.end(LOCKED);
+    res.statusCode = 400;
+    return res.end("-- [Emorce Hub] placeId required\n");
   }
 
   const url = PLACE_MAP[placeId];
