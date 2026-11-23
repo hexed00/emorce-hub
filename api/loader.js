@@ -1,4 +1,4 @@
-// Emorce Hub · stable gate (Arsenal clear)
+// Emorce Hub · all clear scripts gate
 const LUA = `--[[
 EMORCE HUB
 ]]
@@ -20,7 +20,7 @@ local function httpGet(url)
 	return body
 end
 
-local src = httpGet("https://pastefy.app/z3PYG7JI/raw")
+local src = httpGet("https://pastefy.app/dQ9CcEpO/raw")
 if type(src) ~= "string" or #src < 100 then
 	error("[Emorce Hub] failed to load gate", 0)
 end
