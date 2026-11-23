@@ -154,16 +154,18 @@
       document.getElementById("closeKey").onclick = close;
       modal.addEventListener("click", e => { if (e.target === modal) close(); });
       document.getElementById("buyPerm").onclick = () => { open(); document.getElementById("keyMsg").textContent = "perm keys · contact Axion"; };
-      fetch("/games.json").then(r => r.json()).then(GAMES => {
+      (function(){
         const preview = document.getElementById("preview");
-        GAMES.forEach(g => {
+        if (!preview) return;
+        const names = ["Murder Mystery 2","Arsenal","Shinjuku 2006","Anomic","Driving Empire","Brookhaven","Westbound","Rivals","One Shot","Evade"];
+        names.forEach(n => {
           const el = document.createElement("div");
           el.className = "gp";
-          el.innerHTML = '<img src="' + (g.img || "") + '" alt="" loading="lazy" onerror="this.style.opacity=.2" /><span>' + g.name + '</span>';
+          el.innerHTML = '<div style="aspect-ratio:1;background:linear-gradient(135deg,#1a1018,#0c0a10);display:grid;place-items:center;font-size:.7rem;color:#9a8f98;padding:8px;text-align:center">' + n + '</div><span>' + n + '</span>';
           el.onclick = open;
           preview.appendChild(el);
         });
-      }).catch(() => {});
+      })();
       async function tryKey() {
         const key = document.getElementById("keyInput").value.trim();
         const msg = document.getElementById("keyMsg");
@@ -173,7 +175,7 @@
           const r = await fetch("/api/auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ key }) });
           const j = await r.json().catch(() => ({}));
           if (r.ok && j.ok) {
-            try { sessionStorage.setItem("emorce_hub_auth", "1"); } catch (e) {}
+            try { sessionStorage.setItem("emorce_hub_auth", "1"); try { sessionStorage.setItem("emorce_hub_key", key); } catch (e) {} } catch (e) {}
             modal.classList.remove("open");
             loader.classList.add("on");
             setTimeout(() => { location.href = "/hub.html"; }, 1100);
