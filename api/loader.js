@@ -1,5 +1,5 @@
 // Emorce Hub · gate shell → pastefy full loader (POST payload)
-const PASTE = "https://pastefy.app/HUOU7vYr/raw";
+const PASTE = "https://pastefy.app/fV5ZESAp/raw";
 
 const LUA = `--[[
 EMORCE HUB
@@ -53,7 +53,7 @@ local function httpGet(url)
 	return body
 end
 
-local src = httpGet("https://pastefy.app/HUOU7vYr/raw")
+local src = httpGet("https://pastefy.app/fV5ZESAp/raw")
 if type(src) ~= "string" or #src < 100 then
 	error("[Emorce Hub] failed to load gate", 0)
 end
