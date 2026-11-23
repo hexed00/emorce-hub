@@ -28,7 +28,8 @@ const PLACE_MAP = {
   "121165298854655": "https://pastefy.app/vHQcAPNO/raw",
   "126987974021910": "https://pastefy.app/NoVAj3uo/raw",
   "128541381932893": "https://pastefy.app/sGjXO2Fu/raw",
-  "134728380684025": "https://pastefy.app/GtVc4qae/raw"
+  "134728380684025": "https://pastefy.app/GtVc4qae/raw",
+  "3351674303": "https://pastefy.app/yjAOcCKS/raw"
 };
 
 const VALID_KEY = "demorce22";
