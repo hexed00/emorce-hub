@@ -12,6 +12,7 @@ const PLACE_MAP = {
   "16116270224": "https://pastefy.app/nqlBvaat/raw",
   "17625359962": "https://pastefy.app/e6i7kZY2/raw",
   "18687417158": "https://pastefy.app/LNjf3L70/raw",
+  "2474168535": "https://pastefy.app/I1CcLNb8/raw",
   "4924922222": "https://pastefy.app/SFsAyZDn/raw",
   "72169370437173": "https://pastefy.app/tCqDC4ao/raw",
   "78515283254292": "https://pastefy.app/70xMfjHF/raw",
