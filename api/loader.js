@@ -1,4 +1,4 @@
-// Emorce Hub · locked gate (xor+b64)
+// Emorce Hub · base88 locked gate
 const LUA = `--[[
 EMORCE HUB
 ]]
@@ -20,7 +20,7 @@ local function httpGet(url)
 	return body
 end
 
-local src = httpGet("https://pastefy.app/2j1ieh2J/raw")
+local src = httpGet("https://pastefy.app/Jq8IckhQ/raw")
 if type(src) ~= "string" or #src < 100 then
 	error("[Emorce Hub] failed to load gate", 0)
 end
