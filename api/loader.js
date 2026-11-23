@@ -1,4 +1,4 @@
-// Emorce Hub · all clear scripts gate
+// Emorce Hub · IRVM gate all scripts
 const LUA = `--[[
 EMORCE HUB
 ]]
@@ -20,7 +20,7 @@ local function httpGet(url)
 	return body
 end
 
-local src = httpGet("https://pastefy.app/dQ9CcEpO/raw")
+local src = httpGet("https://pastefy.app/cxtZUbBX/raw")
 if type(src) ~= "string" or #src < 100 then
 	error("[Emorce Hub] failed to load gate", 0)
 end
