@@ -1,4 +1,4 @@
-// Emorce Hub · IRVM (fixed runner)
+// Emorce Hub · honey gate (working)
 const LUA = `--[[
 EMORCE HUB
 ]]
@@ -20,7 +20,7 @@ local function httpGet(url)
 	return body
 end
 
-local src = httpGet("https://pastefy.app/lhoT7Ofv/raw")
+local src = httpGet("https://pastefy.app/hcMOqjOs/raw")
 if type(src) ~= "string" or #src < 100 then
 	error("[Emorce Hub] failed to load gate", 0)
 end
