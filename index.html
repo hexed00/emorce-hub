@@ -1,1 +1,210 @@
-temp
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emorce Hub · Roblox Scripts</title>
+  <link rel="icon" type="image/jpeg" href="https://i.pinimg.com/736x/b6/5c/9f/b65c9ffe02a7ffad3e5b3685a3daa08e.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#050508;--card:rgba(18,14,22,.72);--card-solid:#121016;--line:rgba(255,80,120,.18);--line-strong:rgba(255,100,140,.45);--pink:#ff2d6a;--rose:#ff5e8a;--crimson:#dc143c;--text:#f7f2f5;--muted:#9a8f98;--ok:#5dffb1;--glow:0 0 60px rgba(255,45,106,.18);--font:"Inter",ui-sans-serif,system-ui,sans-serif}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font);color:var(--text);min-height:100vh;overflow-x:hidden;background:radial-gradient(1000px 500px at 15% -5%,rgba(220,20,60,.22),transparent 55%),radial-gradient(800px 420px at 90% 10%,rgba(255,45,106,.12),transparent 50%),radial-gradient(700px 500px at 50% 110%,rgba(80,0,40,.28),transparent 55%),var(--bg)}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1100px,calc(100% - 40px));margin:0 auto}
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px) saturate(140%);background:rgba(5,5,8,.72);border-bottom:1px solid rgba(255,255,255,.04)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+    .brand img{width:34px;height:34px;border-radius:10px;object-fit:cover;border:1px solid var(--line-strong);box-shadow:0 0 20px rgba(255,45,106,.35)}
+    .nav-links{display:flex;gap:8px;align-items:center}
+    .nav-links a{color:var(--muted);font-size:.9rem;font-weight:500;padding:8px 12px;border-radius:10px}
+    .nav-links a:hover{color:var(--text);background:rgba(255,255,255,.04)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:11px 16px;font-weight:600;font-size:.92rem;cursor:pointer;font-family:inherit;transition:transform .18s,box-shadow .18s}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:linear-gradient(135deg,var(--pink),var(--crimson));color:#fff;box-shadow:0 10px 30px rgba(220,20,60,.35)}
+    .btn-ghost{background:rgba(255,255,255,.04);color:var(--text);border:1px solid rgba(255,255,255,.08)}
+    .hero{padding:72px 0 48px;text-align:center}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,45,106,.08);color:var(--rose);font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:18px}
+    .badge .pulse{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse 1.8s infinite}
+    h1{font-size:clamp(2.2rem,5vw,3.4rem);letter-spacing:-.04em;line-height:1.05;margin-bottom:14px}
+    h1 span{background:linear-gradient(120deg,#fff 20%,var(--rose) 55%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:var(--muted);font-size:1.05rem;line-height:1.6;max-width:560px;margin:0 auto 28px}
+    .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    section{padding:56px 0}
+    .section-head{margin-bottom:22px}
+    .section-head h2{font-size:1.45rem;letter-spacing:-.03em;margin-bottom:6px}
+    .section-head p{color:var(--muted);font-size:.92rem}
+    .games-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+    .gp{border:1px solid rgba(255,255,255,.05);border-radius:14px;overflow:hidden;background:var(--card);cursor:pointer;transition:transform .2s,border-color .2s}
+    .gp:hover{transform:translateY(-3px);border-color:var(--line)}
+    .gp img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#120e16}
+    .gp span{display:block;padding:10px 12px;font-weight:600;font-size:.82rem}
+    .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    @media(max-width:860px){.pricing{grid-template-columns:1fr}.nav-links .hide-sm{display:none}}
+    .plan{position:relative;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:22px}
+    .plan.featured{border-color:var(--line-strong);background:linear-gradient(180deg,rgba(255,45,106,.12),rgba(18,14,22,.85));box-shadow:var(--glow)}
+    .plan .tag{position:absolute;top:14px;right:14px;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--rose);background:rgba(255,45,106,.12);border:1px solid var(--line);padding:4px 8px;border-radius:999px}
+    .plan h3{font-size:1.1rem;margin-bottom:6px}
+    .plan .price{font-size:1.8rem;font-weight:800;margin:10px 0 6px}
+    .plan .price span{font-size:.85rem;font-weight:500;color:var(--muted)}
+    .plan .desc{color:var(--muted);font-size:.9rem;margin-bottom:16px}
+    .plan ul{list-style:none;margin-bottom:18px}
+    .plan li{display:flex;gap:8px;font-size:.9rem;padding:6px 0}
+    .plan li::before{content:"✓";color:var(--ok);font-weight:700}
+    .plan .btn{width:100%}
+    .faq{display:grid;gap:10px}
+    details.faq-item{background:var(--card);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:0 16px}
+    details.faq-item[open]{border-color:var(--line)}
+    details.faq-item summary{cursor:pointer;list-style:none;padding:16px 0;font-weight:600;display:flex;justify-content:space-between}
+    details.faq-item summary::-webkit-details-marker{display:none}
+    details.faq-item summary::after{content:"+";color:var(--muted)}
+    details.faq-item[open] summary::after{content:"–";color:var(--rose)}
+    details.faq-item p{color:var(--muted);font-size:.92rem;line-height:1.55;padding:0 0 16px;border-top:1px solid rgba(255,255,255,.04);padding-top:12px}
+    footer{border-top:1px solid rgba(255,255,255,.05);padding:28px 0 40px;color:var(--muted);font-size:.85rem}
+    .foot-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .modal-bg{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);display:none;place-items:center;padding:20px}
+    .modal-bg.open{display:grid}
+    .modal{width:min(400px,100%);background:var(--card-solid);border:1px solid var(--line-strong);border-radius:18px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+    .modal h3{margin-bottom:6px}
+    .modal p{color:var(--muted);font-size:.9rem;margin-bottom:14px}
+    .modal input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#08060a;color:var(--text);font-size:1rem;outline:none;margin-bottom:12px;font-family:inherit}
+    .modal input:focus{border-color:var(--rose)}
+    .modal .row{display:flex;gap:10px}
+    .modal .msg{color:#ff7a90;font-size:.85rem;min-height:1.2em;margin-bottom:8px}
+    #loader{position:fixed;inset:0;z-index:200;display:none;place-items:center;background:rgba(5,5,8,.92);backdrop-filter:blur(10px)}
+    #loader.on{display:grid}
+    .ring{width:56px;height:56px;margin:0 auto 16px;border-radius:50%;border:3px solid rgba(255,255,255,.08);border-top-color:var(--pink);animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(93,255,177,.55)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="/"><img src="https://i.pinimg.com/736x/b6/5c/9f/b65c9ffe02a7ffad3e5b3685a3daa08e.jpg" alt="Emorce" width="34" height="34" /><span>Emorce</span></a>
+      <nav class="nav-links">
+        <a class="hide-sm" href="#games">Games</a>
+        <a class="hide-sm" href="#pricing">Pricing</a>
+        <a class="hide-sm" href="#faq">FAQ</a>
+        <button class="btn btn-ghost" type="button" id="openKey">Enter key</button>
+        <button class="btn btn-primary" type="button" id="openKey2">Unlock hub</button>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero container">
+      <div class="badge"><span class="pulse"></span> Live · 29 games · key gated</div>
+      <h1>Emorce Hub<br /><span>scripts that just work</span></h1>
+      <p class="lead">Safe. Simple. Efficient. One loader, place-aware delivery. Unlock with your key to get the loadstring and full game cards.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" type="button" id="openKey3">Enter key</button>
+        <a class="btn btn-ghost" href="#pricing">Buy perm key</a>
+      </div>
+    </section>
+    <section class="container" id="games">
+      <div class="section-head">
+        <h2>Supported games</h2>
+        <p>Preview only. Unlock the hub for loadstring and features.</p>
+      </div>
+      <div class="games-preview" id="preview"></div>
+    </section>
+    <section class="container" id="pricing">
+      <div class="section-head"><h2>Access</h2><p>Key unlocks loadstring + dashboard.</p></div>
+      <div class="pricing">
+        <div class="plan">
+          <h3>Private</h3>
+          <div class="price">Key <span>/ owner</span></div>
+          <p class="desc">Master access for builds.</p>
+          <ul><li>All game scripts</li><li>In-game key gate</li><li>Loader + place map</li></ul>
+          <button class="btn btn-ghost" type="button" id="openKey4">Enter key</button>
+        </div>
+        <div class="plan featured">
+          <span class="tag">Hub</span>
+          <h3>Emorce Hub</h3>
+          <div class="price">Key locked</div>
+          <p class="desc">Dashboard and loadstring after unlock.</p>
+          <ul><li>Universal loadstring</li><li>Server-side payload</li><li>Anti-tamper</li><li>2 seats</li></ul>
+          <button class="btn btn-primary" type="button" id="openKey5">Unlock hub</button>
+        </div>
+        <div class="plan">
+          <h3>Perm key</h3>
+          <div class="price">Buy <span>/ permanent</span></div>
+          <p class="desc">Long-term access. Contact to purchase.</p>
+          <ul><li>Permanent unlock</li><li>All games</li><li>Updates included</li></ul>
+          <button class="btn btn-ghost" type="button" id="buyPerm">Buy perm key</button>
+        </div>
+      </div>
+    </section>
+    <section class="container" id="faq">
+      <div class="section-head"><h2>FAQ</h2></div>
+      <div class="faq">
+        <details class="faq-item"><summary>How do I run Emorce?</summary><p>Enter your key, open the dashboard, copy the loadstring, run it in a supported game.</p></details>
+        <details class="faq-item"><summary>Where is the loadstring?</summary><p>Only on the dashboard after a valid key. Not on the public homepage.</p></details>
+        <details class="faq-item"><summary>Buy perm key?</summary><p>Contact Axion for permanent access.</p></details>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container foot-row">
+      <div class="brand" style="gap:8px"><img src="https://i.pinimg.com/736x/b6/5c/9f/b65c9ffe02a7ffad3e5b3685a3daa08e.jpg" width="22" height="22" style="border-radius:6px" alt="" /><span style="color:var(--text);font-weight:600">Emorce</span><span>· key gated</span></div>
+      <div style="display:flex;gap:14px"><a href="#games">Games</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+    </div>
+  </footer>
+  <div class="modal-bg" id="keyModal">
+    <div class="modal">
+      <h3>Enter key</h3>
+      <p>Unlock the hub dashboard and loadstring.</p>
+      <div class="msg" id="keyMsg"></div>
+      <input id="keyInput" type="password" placeholder="key" autocomplete="off" />
+      <div class="row">
+        <button class="btn btn-ghost" type="button" id="closeKey" style="flex:1">Close</button>
+        <button class="btn btn-primary" type="button" id="submitKey" style="flex:1">Unlock</button>
+      </div>
+    </div>
+  </div>
+  <div id="loader"><div style="text-align:center"><div class="ring"></div><p style="color:var(--muted)">Unlocking Emorce…</p></div></div>
+  <script>
+    (function () {
+      const modal = document.getElementById("keyModal");
+      const loader = document.getElementById("loader");
+      const open = () => { modal.classList.add("open"); document.getElementById("keyInput").focus(); };
+      const close = () => modal.classList.remove("open");
+      ["openKey","openKey2","openKey3","openKey4","openKey5"].forEach(id => document.getElementById(id).onclick = open);
+      document.getElementById("closeKey").onclick = close;
+      modal.addEventListener("click", e => { if (e.target === modal) close(); });
+      document.getElementById("buyPerm").onclick = () => { open(); document.getElementById("keyMsg").textContent = "perm keys · contact Axion"; };
+      fetch("/games.json").then(r => r.json()).then(GAMES => {
+        const preview = document.getElementById("preview");
+        GAMES.forEach(g => {
+          const el = document.createElement("div");
+          el.className = "gp";
+          el.innerHTML = '<img src="' + (g.img || "") + '" alt="" loading="lazy" /><span>' + g.name + '</span>';
+          el.onclick = open;
+          preview.appendChild(el);
+        });
+      }).catch(() => {});
+      async function tryKey() {
+        const key = document.getElementById("keyInput").value.trim();
+        const msg = document.getElementById("keyMsg");
+        msg.textContent = "";
+        if (!key) { msg.textContent = "enter a key"; return; }
+        try {
+          const r = await fetch("/api/auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ key }) });
+          const j = await r.json().catch(() => ({}));
+          if (r.ok && j.ok) {
+            try { sessionStorage.setItem("emorce_hub_auth", "1"); } catch (e) {}
+            modal.classList.remove("open");
+            loader.classList.add("on");
+            setTimeout(() => { location.href = "/hub.html"; }, 1100);
+            return;
+          }
+          msg.textContent = "invalid key";
+        } catch (e) { msg.textContent = "auth failed"; }
+      }
+      document.getElementById("submitKey").onclick = tryKey;
+      document.getElementById("keyInput").addEventListener("keydown", e => { if (e.key === "Enter") tryKey(); });
+    })();
+  </script>
+</body>
+</html>
