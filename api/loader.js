@@ -1,29 +1,113 @@
-// Emorce Hub · 1 seat · no SA · syntax fix
-const LUA = "--[[\nEMORCE HUB\ndemorce tamper activated\n]]\n\ndo\n\tlocal function locked()\n\t\treturn table.concat({\n\t\t\t\"-- ============================================\",\n\t\t\t\"--   demorce tamper activated\",\n\t\t\t\"--   script needs key · source locked\",\n\t\t\t\"--   https://emorce-hub.vercel.app\",\n\t\t\t\"-- ============================================\",\n\t\t}, \"\\n\")\n\tend\n\tlocal function isExecutor()\n\t\tlocal g = rawget(_G, \"game\")\n\t\tif not g then\n\t\t\tlocal ok, gg = pcall(function() return game end)\n\t\t\tif ok then g = gg end\n\t\tend\n\t\tif g == nil then return false end\n\t\tif type(loadstring) ~= \"function\" and type(load) ~= \"function\" then return false end\n\t\tlocal ok = pcall(function()\n\t\t\tlocal _ = g.PlaceId\n\t\tend)\n\t\treturn ok\n\tend\n\tif not isExecutor() then\n\t\tlocal msg = locked()\n\t\tif type(print) == \"function\" then pcall(print, msg) end\n\t\treturn (loadstring or load)(msg)\n\tend\nend\n\nlocal function httpGet(url)\n\tlocal body\n\tlocal ok = pcall(function()\n\t\tif type(syn) == \"table\" and type(syn.request) == \"function\" then\n\t\t\tbody = syn.request({ Url = url, Method = \"GET\" }).Body\n\t\telseif type(http_request) == \"function\" then\n\t\t\tbody = http_request({ Url = url, Method = \"GET\" }).Body\n\t\telseif type(request) == \"function\" then\n\t\t\tbody = request({ Url = url, Method = \"GET\" }).Body\n\t\telse\n\t\t\tbody = game:HttpGet(url)\n\t\tend\n\tend)\n\tif not ok then return nil end\n\treturn body\nend\n\nlocal src = httpGet(\"https://pastefy.app/AcYGhsP3/raw\")\nif type(src) ~= \"string\" or #src < 100 then\n\terror(\"[Emorce Hub] failed to load gate\", 0)\nend\nlocal fn, err = (loadstring or load)(src)\nif not fn then\n\terror(\"[Emorce Hub] \" .. tostring(err), 0)\nend\nfn()\n";
+// Emorce Hub · gate shell → pastefy full loader (POST payload)
+const PASTE = "https://pastefy.app/oqpPfAas/raw";
 
-const HTML = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\"/>\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/>\n<title>Emorce Hub</title>\n<style>\n  @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel+Decorative:wght@700&display=swap');\n  *{margin:0;padding:0;box-sizing:border-box}\n  html,body{height:100%;overflow:hidden;background:#0a0000}\n  .bg{position:fixed;inset:0;background:#0a0000 center/cover no-repeat;background-image:linear-gradient(180deg,rgba(8,0,0,.55),rgba(20,0,4,.75)),url('https://i.pinimg.com/736x/b5/52/13/b5521376fe5a685af0aa25fc9f434ac8.jpg');filter:saturate(1.1) contrast(1.05);}\n  .vignette{position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.85) 100%);pointer-events:none;}\n  .center{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;z-index:2;}\n  h1{font-family:'UnifrakturCook','Cinzel Decorative',serif;font-size:clamp(2.2rem,7vw,4.5rem);color:#f2e8e8;text-shadow:0 0 8px rgba(180,0,20,.9),0 0 24px rgba(120,0,10,.7),0 2px 0 #3a0000,0 4px 12px rgba(0,0,0,.9);letter-spacing:.04em;line-height:1.15;max-width:16ch;}\n  h1 span{color:#c41e3a}\n  .sub{margin-top:1.25rem;font-family:'Cinzel Decorative',serif;font-size:clamp(.75rem,2vw,1rem);color:#c9a0a0;letter-spacing:.35em;text-transform:uppercase;text-shadow:0 0 12px rgba(100,0,10,.6);}\n  .line{width:min(280px,60vw);height:1px;margin:1.4rem auto 0;background:linear-gradient(90deg,transparent,#8b0000,transparent);}\n  .footer{position:fixed;bottom:18px;left:0;right:0;text-align:center;font-family:system-ui,sans-serif;font-size:11px;color:#5a3030;letter-spacing:.2em;text-transform:uppercase;z-index:2;}\n</style>\n</head>\n<body>\n  <div class=\"bg\"></div>\n  <div class=\"vignette\"></div>\n  <div class=\"center\">\n    <h1>u tryna see the <span>code</span> son?</h1>\n    <div class=\"line\"></div>\n    <p class=\"sub\">demorce · locked</p>\n  </div>\n  <div class=\"footer\">emorce hub</div>\n</body>\n</html>\n";
+const LUA = `--[[
+EMORCE HUB
+demorce tamper activated
+]]
+
+do
+	local function locked()
+		return table.concat({
+			"-- ============================================",
+			"--   demorce tamper activated",
+			"--   script needs key · source locked",
+			"--   https://emorce-hub.vercel.app",
+			"-- ============================================",
+		}, "\n")
+	end
+	local function isExecutor()
+		local g = rawget(_G, "game")
+		if not g then
+			local ok, gg = pcall(function() return game end)
+			if ok then g = gg end
+		end
+		if g == nil then return false end
+		if type(loadstring) ~= "function" and type(load) ~= "function" then return false end
+		local ok = pcall(function()
+			local _ = g.PlaceId
+		end)
+		return ok
+	end
+	if not isExecutor() then
+		local msg = locked()
+		if type(print) == "function" then pcall(print, msg) end
+		return (loadstring or load)(msg)
+	end
+end
+
+local function httpGet(url)
+	local body
+	local ok = pcall(function()
+		if type(syn) == "table" and type(syn.request) == "function" then
+			body = syn.request({ Url = url, Method = "GET" }).Body
+		elseif type(http_request) == "function" then
+			body = http_request({ Url = url, Method = "GET" }).Body
+		elseif type(request) == "function" then
+			body = request({ Url = url, Method = "GET" }).Body
+		else
+			body = game:HttpGet(url)
+		end
+	end)
+	if not ok then return nil end
+	return body
+end
+
+local src = httpGet("https://pastefy.app/oqpPfAas/raw")
+if type(src) ~= "string" or #src < 100 then
+	error("[Emorce Hub] failed to load gate", 0)
+end
+local fn, err = (loadstring or load)(src)
+if not fn then
+	error("[Emorce Hub] " .. tostring(err), 0)
+end
+fn()
+`;
+
+const HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Emorce Hub</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:#0a0000}
+  .center{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;z-index:2;color:#c9a0a0;font-family:system-ui,sans-serif}
+  h1{font-size:1.6rem;color:#f2e8e8;margin-bottom:12px}
+  p{opacity:.7;font-size:.9rem}
+</style>
+</head>
+<body>
+  <div class="center">
+    <h1>emorce hub</h1>
+    <p>locked · demorce</p>
+  </div>
+</body>
+</html>
+`;
 
 module.exports = function handler(req, res) {
-  const accept = String(req.headers['accept'] || '').toLowerCase();
-  const dest = String(req.headers['sec-fetch-dest'] || '').toLowerCase();
-  const mode = String(req.headers['sec-fetch-mode'] || '').toLowerCase();
+  const accept = String(req.headers["accept"] || "").toLowerCase();
+  const dest = String(req.headers["sec-fetch-dest"] || "").toLowerCase();
+  const mode = String(req.headers["sec-fetch-mode"] || "").toLowerCase();
   const wantsHtml =
-    accept.includes('text/html') ||
-    dest === 'document' ||
-    mode === 'navigate' ||
-    (req.query && (req.query.view === '1' || req.query.page === '1'));
+    accept.includes("text/html") ||
+    dest === "document" ||
+    mode === "navigate" ||
+    (req.query && (req.query.view === "1" || req.query.page === "1"));
   const forceLua =
-    (req.query && (req.query.raw === '1' || req.query.lua === '1')) ||
-    (accept.includes('text/plain') && !accept.includes('text/html'));
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Cache-Control', 'no-store');
+    (req.query && (req.query.raw === "1" || req.query.lua === "1")) ||
+    (accept.includes("text/plain") && !accept.includes("text/html"));
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Cache-Control", "no-store");
   if (wantsHtml && !forceLua) {
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.statusCode = 200;
     res.end(HTML);
     return;
   }
-  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader("Content-Type", "text/plain; charset=utf-8");
   res.statusCode = 200;
   res.end(LUA);
 };
