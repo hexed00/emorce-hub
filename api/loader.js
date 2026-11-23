@@ -1,40 +1,7 @@
-// Emorce Hub · gate shell → pastefy full loader (POST payload)
-const PASTE = "https://pastefy.app/c20Ev0Sd/raw";
-
+// Emorce Hub · stable gate
 const LUA = `--[[
 EMORCE HUB
-demorce tamper activated
 ]]
-
-do
-	local function locked()
-		return table.concat({
-			"-- ============================================",
-			"--   demorce tamper activated",
-			"--   script needs key · source locked",
-			"--   https://emorce-hub.vercel.app",
-			"-- ============================================",
-		}, "\n")
-	end
-	local function isExecutor()
-		local g = rawget(_G, "game")
-		if not g then
-			local ok, gg = pcall(function() return game end)
-			if ok then g = gg end
-		end
-		if g == nil then return false end
-		if type(loadstring) ~= "function" and type(load) ~= "function" then return false end
-		local ok = pcall(function()
-			local _ = g.PlaceId
-		end)
-		return ok
-	end
-	if not isExecutor() then
-		local msg = locked()
-		if type(print) == "function" then pcall(print, msg) end
-		return (loadstring or load)(msg)
-	end
-end
 
 local function httpGet(url)
 	local body
@@ -53,7 +20,7 @@ local function httpGet(url)
 	return body
 end
 
-local src = httpGet("https://pastefy.app/c20Ev0Sd/raw")
+local src = httpGet("https://pastefy.app/XtdcEb76/raw")
 if type(src) ~= "string" or #src < 100 then
 	error("[Emorce Hub] failed to load gate", 0)
 end
@@ -64,37 +31,14 @@ end
 fn()
 `;
 
-const HTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Emorce Hub</title>
-<style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%;overflow:hidden;background:#0a0000}
-  .center{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;z-index:2;color:#c9a0a0;font-family:system-ui,sans-serif}
-  h1{font-size:1.6rem;color:#f2e8e8;margin-bottom:12px}
-  p{opacity:.7;font-size:.9rem}
-</style>
-</head>
-<body>
-  <div class="center">
-    <h1>emorce hub</h1>
-    <p>locked · demorce</p>
-  </div>
-</body>
-</html>
-`;
+const HTML = "<!DOCTYPE html><html><body style=\"background:#0a0000;color:#888;font-family:system-ui;display:flex;align-items:center;justify-content:center;height:100vh;margin:0\">emorce locked</body></html>";
 
 module.exports = function handler(req, res) {
   const accept = String(req.headers["accept"] || "").toLowerCase();
   const dest = String(req.headers["sec-fetch-dest"] || "").toLowerCase();
   const mode = String(req.headers["sec-fetch-mode"] || "").toLowerCase();
   const wantsHtml =
-    accept.includes("text/html") ||
-    dest === "document" ||
-    mode === "navigate" ||
+    accept.includes("text/html") || dest === "document" || mode === "navigate" ||
     (req.query && (req.query.view === "1" || req.query.page === "1"));
   const forceLua =
     (req.query && (req.query.raw === "1" || req.query.lua === "1")) ||
@@ -104,10 +48,9 @@ module.exports = function handler(req, res) {
   if (wantsHtml && !forceLua) {
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.statusCode = 200;
-    res.end(HTML);
-    return;
+    return res.end(HTML);
   }
   res.setHeader("Content-Type", "text/plain; charset=utf-8");
   res.statusCode = 200;
-  res.end(LUA);
+  return res.end(LUA);
 };
