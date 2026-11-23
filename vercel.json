@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/private/(.*)",
+      "destination": "/api/auth"
+    },
+    {
+      "source": "/scripts/(.*)",
+      "destination": "/api/auth"
+    },
+    {
       "source": "/loader.lua",
       "destination": "/api/loader"
     }
@@ -33,6 +41,27 @@
       ]
     },
     {
+      "source": "/api/catalog",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "POST, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, X-Emorce-Key"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
       "source": "/api/payload",
       "headers": [
         {
@@ -46,19 +75,6 @@
         {
           "key": "Access-Control-Allow-Headers",
           "value": "Content-Type, X-Emorce-Key"
-        }
-      ]
-    },
-    {
-      "source": "/api/icon",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400"
         }
       ]
     }
