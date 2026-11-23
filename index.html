@@ -24,7 +24,7 @@
     .btn:hover{transform:translateY(-1px)}
     .btn-primary{background:linear-gradient(135deg,var(--pink),var(--crimson));color:#fff;box-shadow:0 10px 30px rgba(220,20,60,.35)}
     .btn-ghost{background:rgba(255,255,255,.04);color:var(--text);border:1px solid rgba(255,255,255,.08)}
-    .hero{padding:72px 0 48px;text-align:center}
+    .hero{padding:72px 0 48px;text-align:center;position:relative}
     .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,45,106,.08);color:var(--rose);font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:18px}
     .badge .pulse{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse 1.8s infinite}
     h1{font-size:clamp(2.2rem,5vw,3.4rem);letter-spacing:-.04em;line-height:1.05;margin-bottom:14px}
@@ -48,117 +48,97 @@
     .plan h3{font-size:1.1rem;margin-bottom:6px}
     .plan .price{font-size:1.8rem;font-weight:800;margin:10px 0 6px}
     .plan .price span{font-size:.85rem;font-weight:500;color:var(--muted)}
-    .plan .desc{color:var(--muted);font-size:.9rem;margin-bottom:16px}
-    .plan ul{list-style:none;margin-bottom:18px}
-    .plan li{display:flex;gap:8px;font-size:.9rem;padding:6px 0}
+    .plan .desc{color:var(--muted);font-size:.88rem;margin-bottom:14px}
+    .plan ul{list-style:none;margin:0 0 18px}
+    .plan li{padding:6px 0;font-size:.9rem;display:flex;gap:8px}
     .plan li::before{content:"✓";color:var(--ok);font-weight:700}
-    .plan .btn{width:100%}
     .faq{display:grid;gap:10px}
-    details.faq-item{background:var(--card);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:0 16px}
-    details.faq-item[open]{border-color:var(--line)}
-    details.faq-item summary{cursor:pointer;list-style:none;padding:16px 0;font-weight:600;display:flex;justify-content:space-between}
-    details.faq-item summary::-webkit-details-marker{display:none}
-    details.faq-item summary::after{content:"+";color:var(--muted)}
-    details.faq-item[open] summary::after{content:"–";color:var(--rose)}
-    details.faq-item p{color:var(--muted);font-size:.92rem;line-height:1.55;padding:0 0 16px;border-top:1px solid rgba(255,255,255,.04);padding-top:12px}
-    footer{border-top:1px solid rgba(255,255,255,.05);padding:28px 0 40px;color:var(--muted);font-size:.85rem}
-    .foot-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-    .modal-bg{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);display:none;place-items:center;padding:20px}
-    .modal-bg.open{display:grid}
-    .modal{width:min(400px,100%);background:var(--card-solid);border:1px solid var(--line-strong);border-radius:18px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
-    .modal h3{margin-bottom:6px}
-    .modal p{color:var(--muted);font-size:.9rem;margin-bottom:14px}
-    .modal input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#08060a;color:var(--text);font-size:1rem;outline:none;margin-bottom:12px;font-family:inherit}
-    .modal input:focus{border-color:var(--rose)}
-    .modal .row{display:flex;gap:10px}
-    .modal .msg{color:#ff7a90;font-size:.85rem;min-height:1.2em;margin-bottom:8px}
-    #loader{position:fixed;inset:0;z-index:200;display:none;place-items:center;background:rgba(5,5,8,.92);backdrop-filter:blur(10px)}
+    .faq-item{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:14px 16px}
+    .faq-item summary{cursor:pointer;font-weight:600}
+    .faq-item p{color:var(--muted);margin-top:8px;font-size:.9rem;line-height:1.5}
+    footer{padding:40px 0 60px;border-top:1px solid rgba(255,255,255,.04);color:var(--muted);font-size:.85rem;text-align:center}
+    .key-modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);display:none;place-items:center;padding:20px}
+    .key-modal.open{display:grid}
+    .key-box{width:min(400px,100%);background:#121016;border:1px solid var(--line-strong);border-radius:18px;padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+    .key-box h3{margin-bottom:6px}
+    .key-box p{color:var(--muted);font-size:.9rem;margin-bottom:14px}
+    .key-box input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#0a080c;color:var(--text);font-size:1rem;outline:none;margin-bottom:12px}
+    .key-box input:focus{border-color:var(--pink)}
+    .key-msg{color:var(--rose);font-size:.85rem;min-height:1.2em;margin-bottom:8px}
+    .key-row{display:flex;gap:10px}
+    #loader{position:fixed;inset:0;z-index:110;background:rgba(5,5,8,.92);display:none;place-items:center}
     #loader.on{display:grid}
-    .ring{width:56px;height:56px;margin:0 auto 16px;border-radius:50%;border:3px solid rgba(255,255,255,.08);border-top-color:var(--pink);animation:spin .8s linear infinite}
+    .ring{width:48px;height:48px;border-radius:50%;border:3px solid rgba(255,45,106,.2);border-top-color:var(--pink);animation:spin .8s linear infinite;margin:0 auto 14px}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
     @keyframes spin{to{transform:rotate(360deg)}}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(93,255,177,.55)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
   </style>
 </head>
 <body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="/"><img src="https://i.pinimg.com/736x/b6/5c/9f/b65c9ffe02a7ffad3e5b3685a3daa08e.jpg" alt="Emorce" width="34" height="34" /><span>Emorce</span></a>
-      <nav class="nav-links">
-        <a class="hide-sm" href="#games">Games</a>
-        <a class="hide-sm" href="#pricing">Pricing</a>
-        <a class="hide-sm" href="#faq">FAQ</a>
-        <button class="btn btn-ghost" type="button" id="openKey">Enter key</button>
-        <button class="btn btn-primary" type="button" id="openKey2">Unlock hub</button>
-      </nav>
+  <nav class="nav"><div class="container nav-inner">
+    <div class="brand"><img src="https://i.pinimg.com/736x/b6/5c/9f/b65c9ffe02a7ffad3e5b3685a3daa08e.jpg" alt="" /><span>Emorce Hub</span></div>
+    <div class="nav-links">
+      <a href="#games" class="hide-sm">Games</a>
+      <a href="#pricing" class="hide-sm">Access</a>
+      <button class="btn btn-primary" type="button" id="openKey">Enter key</button>
     </div>
-  </header>
-  <main>
-    <section class="hero container">
-      <div class="badge"><span class="pulse"></span> Live · 29 games · key gated</div>
-      <h1>Emorce Hub<br /><span>scripts that just work</span></h1>
-      <p class="lead">Safe. Simple. Efficient. One loader, place-aware delivery. Unlock with your key to get the loadstring and full game cards.</p>
-      <div class="hero-actions">
-        <button class="btn btn-primary" type="button" id="openKey3">Enter key</button>
-        <a class="btn btn-ghost" href="#pricing">Buy perm key</a>
-      </div>
-    </section>
-    <section class="container" id="games">
-      <div class="section-head">
-        <h2>Supported games</h2>
-        <p>Preview only. Unlock the hub for loadstring and features.</p>
-      </div>
-      <div class="games-preview" id="preview"></div>
-    </section>
-    <section class="container" id="pricing">
-      <div class="section-head"><h2>Access</h2><p>Key unlocks loadstring + dashboard.</p></div>
-      <div class="pricing">
-        <div class="plan">
-          <h3>Private</h3>
-          <div class="price">Key <span>/ owner</span></div>
-          <p class="desc">Master access for builds.</p>
-          <ul><li>All game scripts</li><li>In-game key gate</li><li>Loader + place map</li></ul>
-          <button class="btn btn-ghost" type="button" id="openKey4">Enter key</button>
-        </div>
-        <div class="plan featured">
-          <span class="tag">Hub</span>
-          <h3>Emorce Hub</h3>
-          <div class="price">Key locked</div>
-          <p class="desc">Dashboard and loadstring after unlock.</p>
-          <ul><li>Universal loadstring</li><li>Server-side payload</li><li>Anti-tamper</li><li>2 seats</li></ul>
-          <button class="btn btn-primary" type="button" id="openKey5">Unlock hub</button>
-        </div>
-        <div class="plan">
-          <h3>Perm key</h3>
-          <div class="price">Buy <span>/ permanent</span></div>
-          <p class="desc">Long-term access. Contact to purchase.</p>
-          <ul><li>Permanent unlock</li><li>All games</li><li>Updates included</li></ul>
-          <button class="btn btn-ghost" type="button" id="buyPerm">Buy perm key</button>
-        </div>
-      </div>
-    </section>
-    <section class="container" id="faq">
-      <div class="section-head"><h2>FAQ</h2></div>
-      <div class="faq">
-        <details class="faq-item"><summary>How do I run Emorce?</summary><p>Enter your key, open the dashboard, copy the loadstring, run it in a supported game.</p></details>
-        <details class="faq-item"><summary>Where is the loadstring?</summary><p>Only on the dashboard after a valid key. Not on the public homepage.</p></details>
-        <details class="faq-item"><summary>Buy perm key?</summary><p>Contact Axion for permanent access.</p></details>
-      </div>
-    </section>
-  </main>
-  <footer>
-    <div class="container foot-row">
-      <div class="brand" style="gap:8px"><img src="https://i.pinimg.com/736x/b6/5c/9f/b65c9ffe02a7ffad3e5b3685a3daa08e.jpg" width="22" height="22" style="border-radius:6px" alt="" /><span style="color:var(--text);font-weight:600">Emorce</span><span>· key gated</span></div>
-      <div style="display:flex;gap:14px"><a href="#games">Games</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+  </div></nav>
+  <header class="hero"><div class="container">
+    <div class="badge"><span class="pulse"></span> Live · key gated</div>
+    <h1>Emorce <span>Hub</span></h1>
+    <p class="lead">Safe. Simple. Efficient. One loader, place-aware delivery. Unlock with your key to get the loadstring and full game cards.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" type="button" id="openKey2">Enter key</button>
+      <a class="btn btn-ghost" href="#games">Preview games</a>
     </div>
-  </footer>
-  <div class="modal-bg" id="keyModal">
-    <div class="modal">
+  </div></header>
+  <section id="games"><div class="container">
+    <div class="section-head"><h2>Supported games</h2><p>Preview only. Unlock the hub for loadstring and features.</p></div>
+    <div class="games-preview" id="preview"></div>
+  </div></section>
+  <section id="pricing"><div class="container">
+    <div class="section-head"><h2>Access</h2><p>Key unlocks loadstring + dashboard.</p></div>
+    <div class="pricing">
+      <div class="plan">
+        <h3>Free key</h3>
+        <div class="price">0<span> · limited</span></div>
+        <p class="desc">Test seat for supported games.</p>
+        <ul><li>Key gate</li><li>2 seats</li><li>Place-aware loader</li></ul>
+        <button class="btn btn-ghost" type="button" id="openKey3" style="width:100%">Enter key</button>
+      </div>
+      <div class="plan featured">
+        <div class="tag">Recommended</div>
+        <h3>Hub unlock</h3>
+        <div class="price">Key<span></span></div>
+        <p class="desc">Dashboard and loadstring after unlock.</p>
+        <ul><li>Universal loadstring</li><li>Server-side payload</li><li>Anti-tamper</li><li>2 seats</li></ul>
+        <button class="btn btn-primary" type="button" id="openKey4" style="width:100%">Enter key</button>
+      </div>
+      <div class="plan">
+        <h3>Perm key</h3>
+        <div class="price">Contact</div>
+        <p class="desc">Longer access · ask Axion.</p>
+        <ul><li>Priority seat</li><li>Updates</li><li>Support</li></ul>
+        <button class="btn btn-ghost" type="button" id="buyPerm" style="width:100%">Buy perm key</button>
+      </div>
+    </div>
+  </div></section>
+  <section><div class="container">
+    <div class="section-head"><h2>FAQ</h2></div>
+    <div class="faq">
+      <details class="faq-item"><summary>How do I run Emorce?</summary><p>Enter your key, open the dashboard, copy the loadstring, run it in a supported game.</p></details>
+      <details class="faq-item"><summary>Where is the loadstring?</summary><p>Only on the dashboard after a valid key. Not on the public homepage.</p></details>
+      <details class="faq-item"><summary>Seat limit?</summary><p>Two concurrent users. If full, wait or reset.</p></details>
+    </div>
+  </div></section>
+  <footer><div class="container">Emorce Hub · key required · no public loadstring</div></footer>
+  <div class="key-modal" id="keyModal">
+    <div class="key-box">
       <h3>Enter key</h3>
       <p>Unlock the hub dashboard and loadstring.</p>
-      <div class="msg" id="keyMsg"></div>
       <input id="keyInput" type="password" placeholder="key" autocomplete="off" />
-      <div class="row">
-        <button class="btn btn-ghost" type="button" id="closeKey" style="flex:1">Close</button>
+      <div class="key-msg" id="keyMsg"></div>
+      <div class="key-row">
+        <button class="btn btn-ghost" type="button" id="closeKey" style="flex:1">Cancel</button>
         <button class="btn btn-primary" type="button" id="submitKey" style="flex:1">Unlock</button>
       </div>
     </div>
@@ -170,7 +150,7 @@
       const loader = document.getElementById("loader");
       const open = () => { modal.classList.add("open"); document.getElementById("keyInput").focus(); };
       const close = () => modal.classList.remove("open");
-      ["openKey","openKey2","openKey3","openKey4","openKey5"].forEach(id => document.getElementById(id).onclick = open);
+      ["openKey","openKey2","openKey3","openKey4"].forEach(id => { const el = document.getElementById(id); if (el) el.onclick = open; });
       document.getElementById("closeKey").onclick = close;
       modal.addEventListener("click", e => { if (e.target === modal) close(); });
       document.getElementById("buyPerm").onclick = () => { open(); document.getElementById("keyMsg").textContent = "perm keys · contact Axion"; };
@@ -179,7 +159,7 @@
         GAMES.forEach(g => {
           const el = document.createElement("div");
           el.className = "gp";
-          el.innerHTML = '<img src="' + (g.img || "") + '" alt="" loading="lazy" /><span>' + g.name + '</span>';
+          el.innerHTML = '<img src="' + (g.img || "") + '" alt="" loading="lazy" onerror="this.style.opacity=.2" /><span>' + g.name + '</span>';
           el.onclick = open;
           preview.appendChild(el);
         });

@@ -100,7 +100,7 @@
           const el = document.createElement("div");
           el.className = "gcard";
           el.style.animationDelay = (0.03 * (i % 12)) + "s";
-          el.innerHTML = '<img class="gimg" src="' + (g.img || "") + '" alt="" loading="lazy" /><div class="gmeta"><div class="gname">' + g.name + '</div><div class="gtag">' + g.tag + '</div></div>';
+          el.innerHTML = '<img class="gimg" src="' + (g.img || "") + '" alt="" loading="lazy" onerror="this.style.opacity=.25" /><div class="gmeta"><div class="gname">' + g.name + '</div><div class="gtag">' + g.tag + '</div></div>';
           el.onclick = () => openDetail(g);
           grid.appendChild(el);
         });
