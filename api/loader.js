@@ -1,4 +1,4 @@
-// Emorce Hub · gate + Hyper Speed Runner
+// Emorce Hub · gate + Entrenched
 const LUA = `--[[
 EMORCE HUB
 ]]
@@ -20,7 +20,7 @@ local function httpGet(url)
 	return body
 end
 
-local src = httpGet("https://pastefy.app/aEE9RRKE/raw")
+local src = httpGet("https://pastefy.app/USOseE5H/raw")
 if type(src) ~= "string" or #src < 100 then
 	error("[Emorce Hub] failed to load gate", 0)
 end
