@@ -1,4 +1,4 @@
-// Emorce Hub · gate + Voxel Wars + BloxStrike
+// Emorce Hub · gate (Westbound fixed)
 const LUA = `--[[
 EMORCE HUB
 ]]
@@ -20,7 +20,7 @@ local function httpGet(url)
 	return body
 end
 
-local src = httpGet("https://pastefy.app/yVhzHtJB/raw")
+local src = httpGet("https://pastefy.app/j9liq0Os/raw")
 if type(src) ~= "string" or #src < 100 then
 	error("[Emorce Hub] failed to load gate", 0)
 end
