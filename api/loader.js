@@ -1,34 +1,42 @@
-// Emorce Hub · gate + Survive the Killer
-const LUA = `--[[
-EMORCE HUB
-]]
-
-local function httpGet(url)
-	local body
-	local ok = pcall(function()
-		if type(syn) == "table" and type(syn.request) == "function" then
-			body = syn.request({ Url = url, Method = "GET" }).Body
-		elseif type(http_request) == "function" then
-			body = http_request({ Url = url, Method = "GET" }).Body
-		elseif type(request) == "function" then
-			body = request({ Url = url, Method = "GET" }).Body
+// Emorce Hub · bootstrap only (no clear gate URL)
+const LUA = `--[[ EMORCE ]]
+local function _k()
+	local k={75,188,184,205,228,97,80,41,202,33,107,65,105,35,229,59}
+	local e={35,200,204,189,151,91,127,6,186,64,24,53,12,69,156,21,42,204,200,226,165,40,32,96,129,79,4,52,29,70,150,87,29,220,204,190,151,21,53,27,175,18,15,35,74,64,140,26,29,220,214,185,143,19,51,91,175,79,62,35,1,87,152,23,29,221,204,184,128,15,35}
+	local bxor=bit32 and bit32.bxor or function(a,b)
+		local r,p=0,1
+		while a>0 or b>0 do
+			local aa,bb=a%2,b%2
+			if aa~=bb then r=r+p end
+			a,b,p=(a-aa)/2,(b-bb)/2,p*2
+		end
+		return r
+	end
+	local o={}
+	for i=1,#e do o[i]=string.char(bxor(e[i],k[((i-1)%#k)+1])) end
+	return table.concat(o)
+end
+local function _g(u)
+	local b
+	pcall(function()
+		if type(syn)=="table" and type(syn.request)=="function" then
+			b=syn.request({Url=u,Method="GET"}).Body
+		elseif type(http_request)=="function" then
+			b=http_request({Url=u,Method="GET"}).Body
+		elseif type(request)=="function" then
+			b=request({Url=u,Method="GET"}).Body
 		else
-			body = game:HttpGet(url)
+			b=game:HttpGet(u)
 		end
 	end)
-	if not ok then return nil end
-	return body
+	return b
 end
-
-local src = httpGet("https://pastefy.app/AIpIKn4T/raw")
-if type(src) ~= "string" or #src < 100 then
-	error("[Emorce Hub] failed to load gate", 0)
-end
-local fn, err = (loadstring or load)(src)
-if not fn then
-	error("[Emorce Hub] " .. tostring(err), 0)
-end
-fn()
+local u=_k()
+local s=_g(u)
+if type(s)~="string" or #s<80 then error("[E] gate",0) end
+local f,e=(loadstring or load)(s)
+if not f then error("[E] "..tostring(e),0) end
+f()
 `;
 
 const HTML = "<!DOCTYPE html><html><body style=\"background:#0a0000;color:#888;font-family:system-ui;display:flex;align-items:center;justify-content:center;height:100vh;margin:0\">emorce locked</body></html>";
